@@ -5,52 +5,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Reunião Crítica</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-
   <style>
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --danger: #b91c1c;
-      --success-bg: #dcfce7;
-      --success-text: #166534;
-      --border: #cbd5e1;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --surface: #ffffff;
-      --page: #f5f7fb;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
       font-family: "Segoe UI", Arial, sans-serif;
       margin: 0;
       padding: 20px;
-      background: var(--page);
-      color: var(--text);
+      background: #f5f7fb;
+      color: #1f2937;
     }
-
     .card {
-      background: var(--surface);
+      background: #fff;
       border-radius: 16px;
       padding: 20px;
       box-shadow: 0 4px 16px rgba(0,0,0,.08);
       border: 1px solid #e5e7eb;
     }
-
-    h1 {
-      margin: 0;
-      font-size: 21px;
-      line-height: 1.25;
-    }
-
-    .description {
-      font-size: 13px;
-      color: var(--muted);
-      margin: 8px 0 18px;
-      line-height: 1.45;
-    }
-
     .badge {
       display: inline-block;
       margin-bottom: 12px;
@@ -61,64 +30,37 @@
       font-size: 12px;
       font-weight: 700;
     }
-
-    label {
-      display: block;
-      margin-top: 14px;
-      font-weight: 650;
-      font-size: 14px;
-    }
-
-    .required {
-      color: var(--danger);
-      font-weight: 700;
-    }
-
-    select,
-    input {
+    h1 { margin: 0; font-size: 21px; }
+    .description { font-size: 13px; color: #6b7280; margin: 8px 0 18px; line-height: 1.45; }
+    label { display: block; margin-top: 14px; font-weight: 650; font-size: 14px; }
+    .required { color: #b91c1c; font-weight: 700; }
+    select, input {
       width: 100%;
       margin-top: 6px;
       padding: 11px 10px;
       border-radius: 9px;
-      border: 1px solid var(--border);
+      border: 1px solid #cbd5e1;
       font-size: 14px;
-      background: #fff;
+      box-sizing: border-box;
     }
-
-    select:focus,
-    input:focus {
+    select:focus, input:focus {
       outline: 3px solid #2563eb22;
-      border-color: var(--primary);
+      border-color: #2563eb;
     }
-
     .hidden { display: none; }
-
     .error {
       display: none;
       margin-top: 5px;
-      color: var(--danger);
+      color: #b91c1c;
       font-size: 12px;
       font-weight: 600;
     }
-
-    .hint {
-      margin-top: 9px;
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.45;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
+    .hint { margin-top: 9px; font-size: 12px; color: #6b7280; line-height: 1.45; }
     button {
       width: 100%;
       margin-top: 22px;
       padding: 12px;
-      background: var(--primary);
+      background: #2563eb;
       color: #fff;
       border: 0;
       border-radius: 9px;
@@ -126,16 +68,9 @@
       cursor: pointer;
       font-size: 14px;
     }
-
-    button:hover { background: var(--primary-dark); }
-
-    button:disabled {
-      background: #94a3b8;
-      cursor: not-allowed;
-    }
-
-    .success,
-    .warning {
+    button:hover { background: #1d4ed8; }
+    button:disabled { background: #94a3b8; cursor: not-allowed; }
+    .success, .warning {
       display: none;
       margin-top: 14px;
       padding: 11px;
@@ -143,16 +78,8 @@
       font-size: 13px;
       line-height: 1.45;
     }
-
-    .success {
-      background: var(--success-bg);
-      color: var(--success-text);
-    }
-
-    .warning {
-      background: #fef3c7;
-      color: #92400e;
-    }
+    .success { background: #dcfce7; color: #166534; }
+    .warning { background: #fef3c7; color: #92400e; }
   </style>
 </head>
 
@@ -186,95 +113,77 @@
       <div class="error" id="erroNivelCriticidade">O nível da criticidade é obrigatório.</div>
 
       <label for="nomeCriticidade">Nome da criticidade <span class="required">*</span></label>
-      <input
-        id="nomeCriticidade"
-        type="text"
-        maxlength="120"
-        placeholder="Ex: Risco financeiro, incidente regulatório..."
-        aria-describedby="erroNomeCriticidade"
-      />
+      <input id="nomeCriticidade" type="text" maxlength="120" placeholder="Ex: Risco financeiro, incidente regulatório..." />
       <div class="error" id="erroNomeCriticidade">O nome da criticidade é obrigatório.</div>
 
       <label for="entidadeCritica">Entidade crítica <span class="required">*</span></label>
-      <input
-        id="entidadeCritica"
-        type="text"
-        maxlength="120"
-        placeholder="Ex: Cliente, contrato, fornecedor, área..."
-        aria-describedby="erroEntidadeCritica"
-      />
+      <input id="entidadeCritica" type="text" maxlength="120" placeholder="Ex: Cliente, contrato, fornecedor, área..." />
       <div class="error" id="erroEntidadeCritica">A entidade crítica é obrigatória.</div>
 
-      <p class="hint">
-        Estes dados serão salvos na reunião e usados pela validação automática antes do envio.
-      </p>
+      <p class="hint">Estes dados serão salvos na reunião e enviados para o Power Automate para registro no SharePoint e auditoria.</p>
     </section>
 
     <button id="btnSalvar" type="button">Salvar classificação</button>
-
-    <div class="success" id="mensagemSucesso">
-      Classificação salva com sucesso. A reunião já pode ser enviada, desde que os campos obrigatórios estejam válidos.
-    </div>
-
-    <div class="warning" id="mensagemAviso">
-      Não foi possível concluir a operação. Tente novamente.
-    </div>
+    <div class="success" id="mensagemSucesso">Classificação salva com sucesso e enviada para registro.</div>
+    <div class="warning" id="mensagemAviso">Não foi possível concluir a operação. Verifique o Flow ou tente novamente.</div>
   </main>
 
   <script>
-    Office.onReady(() => {
-      const emailCritico = document.getElementById("emailCritico");
-      const camposCriticos = document.getElementById("camposCriticos");
-      const nivelCriticidade = document.getElementById("nivelCriticidade");
-      const nomeCriticidade = document.getElementById("nomeCriticidade");
-      const entidadeCritica = document.getElementById("entidadeCritica");
-      const btnSalvar = document.getElementById("btnSalvar");
-      const mensagemSucesso = document.getElementById("mensagemSucesso");
-      const mensagemAviso = document.getElementById("mensagemAviso");
+    const POWER_AUTOMATE_URL = "https://default783a2c3aadb945ef8d986601d1686f.35.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/69ef74a9b09a4859a90ed5fdd79f09fa/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sXz7nrvkzJQnVMnLNKusvLyiJvvOyC0oHDYM2R264Ec";
+    const ADDIN_VERSION = "1.0.0";
 
+    Office.onReady(() => {
       carregarValoresExistentes();
 
-      emailCritico.addEventListener("change", () => {
+      document.getElementById("emailCritico").addEventListener("change", () => {
         limparMensagens();
+        const camposCriticos = document.getElementById("camposCriticos");
 
-        if (emailCritico.value === "true") {
+        if (document.getElementById("emailCritico").value === "true") {
           camposCriticos.classList.remove("hidden");
-          nivelCriticidade.focus();
+          document.getElementById("nivelCriticidade").focus();
         } else {
           camposCriticos.classList.add("hidden");
-          nivelCriticidade.value = "";
-          nomeCriticidade.value = "";
-          entidadeCritica.value = "";
+          document.getElementById("nivelCriticidade").value = "";
+          document.getElementById("nomeCriticidade").value = "";
+          document.getElementById("entidadeCritica").value = "";
         }
       });
 
-      btnSalvar.addEventListener("click", () => {
+      document.getElementById("btnSalvar").addEventListener("click", async () => {
         limparMensagens();
 
         if (!validarFormulario()) {
           return;
         }
 
+        const btnSalvar = document.getElementById("btnSalvar");
         btnSalvar.disabled = true;
         btnSalvar.innerText = "Salvando...";
 
-        const dados = {
-          emailCritico: emailCritico.value === "true",
-          nivelCriticidade: nivelCriticidade.value,
-          nomeCriticidade: nomeCriticidade.value.trim(),
-          entidadeCritica: entidadeCritica.value.trim(),
-          dataClassificacao: new Date().toISOString()
-        };
+        try {
+          const dados = {
+            emailCritico: document.getElementById("emailCritico").value === "true",
+            nivelCriticidade: document.getElementById("nivelCriticidade").value,
+            nomeCriticidade: document.getElementById("nomeCriticidade").value.trim(),
+            entidadeCritica: document.getElementById("entidadeCritica").value.trim(),
+            assuntoReuniao: await obterAssunto(),
+            dataClassificacao: new Date().toISOString(),
+            correlationId: gerarCorrelationId()
+          };
 
-        salvarCustomProperties(dados, () => {
-          mensagemSucesso.style.display = "block";
+          await salvarCustomProperties(dados);
+          await salvarSharePointComAuditoria(dados);
+
+          document.getElementById("mensagemSucesso").style.display = "block";
+        } catch (error) {
+          console.error("Erro ao salvar classificação:", error);
+          document.getElementById("mensagemAviso").innerText = "Erro ao salvar/enviar classificação. Detalhe: " + error.message;
+          document.getElementById("mensagemAviso").style.display = "block";
+        } finally {
           btnSalvar.disabled = false;
           btnSalvar.innerText = "Salvar classificação";
-        }, () => {
-          mensagemAviso.style.display = "block";
-          btnSalvar.disabled = false;
-          btnSalvar.innerText = "Salvar classificação";
-        });
+        }
       });
     });
 
@@ -282,18 +191,12 @@
       const item = Office.context.mailbox.item;
 
       item.loadCustomPropertiesAsync((result) => {
-        if (result.status !== Office.AsyncResultStatus.Succeeded) {
-          return;
-        }
+        if (result.status !== Office.AsyncResultStatus.Succeeded) return;
 
         const props = result.value;
         const emailCritico = props.get("emailCritico");
-        const nivelCriticidade = props.get("nivelCriticidade") || "";
-        const nomeCriticidade = props.get("nomeCriticidade") || "";
-        const entidadeCritica = props.get("entidadeCritica") || "";
-
-        const emailCriticoInput = document.getElementById("emailCritico");
         const camposCriticos = document.getElementById("camposCriticos");
+        const emailCriticoInput = document.getElementById("emailCritico");
 
         if (emailCritico === true || emailCritico === "true") {
           emailCriticoInput.value = "true";
@@ -302,37 +205,34 @@
           emailCriticoInput.value = "false";
         }
 
-        document.getElementById("nivelCriticidade").value = nivelCriticidade;
-        document.getElementById("nomeCriticidade").value = nomeCriticidade;
-        document.getElementById("entidadeCritica").value = entidadeCritica;
+        document.getElementById("nivelCriticidade").value = props.get("nivelCriticidade") || "";
+        document.getElementById("nomeCriticidade").value = props.get("nomeCriticidade") || "";
+        document.getElementById("entidadeCritica").value = props.get("entidadeCritica") || "";
       });
     }
 
     function validarFormulario() {
       let valido = true;
+      const emailCritico = document.getElementById("emailCritico").value;
+      const nivelCriticidade = document.getElementById("nivelCriticidade").value;
+      const nomeCriticidade = document.getElementById("nomeCriticidade").value.trim();
+      const entidadeCritica = document.getElementById("entidadeCritica").value.trim();
 
-      const emailCritico = document.getElementById("emailCritico");
-      const nivelCriticidade = document.getElementById("nivelCriticidade");
-      const nomeCriticidade = document.getElementById("nomeCriticidade");
-      const entidadeCritica = document.getElementById("entidadeCritica");
-
-      if (!emailCritico.value) {
+      if (!emailCritico) {
         mostrarErro("erroEmailCritico");
         valido = false;
       }
 
-      if (emailCritico.value === "true") {
-        if (!nivelCriticidade.value) {
+      if (emailCritico === "true") {
+        if (!nivelCriticidade) {
           mostrarErro("erroNivelCriticidade");
           valido = false;
         }
-
-        if (!nomeCriticidade.value.trim()) {
+        if (!nomeCriticidade) {
           mostrarErro("erroNomeCriticidade");
           valido = false;
         }
-
-        if (!entidadeCritica.value.trim()) {
+        if (!entidadeCritica) {
           mostrarErro("erroEntidadeCritica");
           valido = false;
         }
@@ -341,31 +241,85 @@
       return valido;
     }
 
-    function salvarCustomProperties(dados, onSuccess, onError) {
-      const item = Office.context.mailbox.item;
+    function salvarCustomProperties(dados) {
+      return new Promise((resolve, reject) => {
+        const item = Office.context.mailbox.item;
 
-      item.loadCustomPropertiesAsync((result) => {
-        if (result.status !== Office.AsyncResultStatus.Succeeded) {
-          onError();
+        item.loadCustomPropertiesAsync((result) => {
+          if (result.status !== Office.AsyncResultStatus.Succeeded) {
+            reject(new Error("Erro ao carregar propriedades da reunião."));
+            return;
+          }
+
+          const props = result.value;
+          props.set("emailCritico", dados.emailCritico);
+          props.set("nivelCriticidade", dados.nivelCriticidade);
+          props.set("nomeCriticidade", dados.nomeCriticidade);
+          props.set("entidadeCritica", dados.entidadeCritica);
+          props.set("dataClassificacao", dados.dataClassificacao);
+          props.set("correlationId", dados.correlationId);
+
+          props.saveAsync((saveResult) => {
+            if (saveResult.status === Office.AsyncResultStatus.Succeeded) {
+              resolve();
+            } else {
+              reject(new Error("Erro ao salvar propriedades da reunião."));
+            }
+          });
+        });
+      });
+    }
+
+    async function salvarSharePointComAuditoria(dados) {
+      const payload = {
+        ...dados,
+        organizador: obterOrganizador(),
+        origem: "Outlook Add-in",
+        versaoAddin: ADDIN_VERSION
+      };
+
+      const response = await fetch(POWER_AUTOMATE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error("Flow retornou status " + response.status + " | CorrelationId: " + payload.correlationId);
+      }
+
+      try {
+        return await response.json();
+      } catch (e) {
+        return { success: true };
+      }
+    }
+
+    function obterAssunto() {
+      return new Promise((resolve) => {
+        const item = Office.context.mailbox.item;
+
+        if (!item.subject || !item.subject.getAsync) {
+          resolve("");
           return;
         }
 
-        const props = result.value;
-
-        props.set("emailCritico", dados.emailCritico);
-        props.set("nivelCriticidade", dados.nivelCriticidade);
-        props.set("nomeCriticidade", dados.nomeCriticidade);
-        props.set("entidadeCritica", dados.entidadeCritica);
-        props.set("dataClassificacao", dados.dataClassificacao);
-
-        props.saveAsync((saveResult) => {
-          if (saveResult.status === Office.AsyncResultStatus.Succeeded) {
-            onSuccess();
-          } else {
-            onError();
-          }
+        item.subject.getAsync((result) => {
+          resolve(result.status === Office.AsyncResultStatus.Succeeded ? (result.value || "") : "");
         });
       });
+    }
+
+    function obterOrganizador() {
+      try {
+        return Office.context.mailbox.userProfile.emailAddress || "";
+      } catch (e) {
+        return "";
+      }
+    }
+
+    function gerarCorrelationId() {
+      return "crit-" + Date.now() + "-" + Math.random().toString(36).substring(2, 10);
     }
 
     function mostrarErro(id) {
@@ -373,10 +327,7 @@
     }
 
     function limparMensagens() {
-      document.querySelectorAll(".error").forEach((e) => {
-        e.style.display = "none";
-      });
-
+      document.querySelectorAll(".error").forEach((e) => e.style.display = "none");
       document.getElementById("mensagemSucesso").style.display = "none";
       document.getElementById("mensagemAviso").style.display = "none";
     }
