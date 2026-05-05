@@ -1,5 +1,5 @@
 {
   "globalHeaders": {
-    "Content-Security-Policy": "default-src 'self' https://appsforoffice.microsoft.com; script-src 'self' 'unsafe-inline' https://appsforoffice.microsoft.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://default783a2c3aadb945ef8d986601d1686f.35.environment.api.powerplatform.com; img-src 'self' data:;"
+    "Content-Security-Policy": "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; script-src 'self' https://appsforoffice.microsoft.com https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline'; img-src 'self' https: data: blob:; connect-src 'self' https:;"
   }
 }
