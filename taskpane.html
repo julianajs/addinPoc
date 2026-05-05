@@ -2,620 +2,383 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Participação do Poder Público</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Reunião Crítica</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+
   <style>
     :root {
-      --gov-blue: #1a3a6e;
-      --gov-blue-light: #e8edf6;
-      --gov-blue-mid: #2e5fa3;
-      --gov-green: #1a6e3a;
-      --gov-green-light: #e8f6ed;
-      --gov-red: #6e1a1a;
-      --gov-red-light: #f6e8e8;
-      --neutral-100: #f5f5f5;
-      --neutral-200: #e8e8e8;
-      --neutral-400: #9e9e9e;
-      --neutral-700: #3d3d3d;
-      --neutral-900: #1a1a1a;
-      --font: 'Segoe UI', system-ui, sans-serif;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --danger: #b91c1c;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --border: #cbd5e1;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --surface: #ffffff;
+      --page: #f5f7fb;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; }
 
     body {
-      font-family: var(--font);
-      font-size: 13px;
-      color: var(--neutral-900);
-      background: #fff;
-      padding: 0;
-      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: var(--page);
+      color: var(--text);
     }
 
-    /* ── Header ── */
-    .header {
-      background: var(--gov-blue);
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
+    .card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 21px;
+      line-height: 1.25;
+    }
+
+    .description {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 8px 0 18px;
+      line-height: 1.45;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      font-weight: 650;
+      font-size: 14px;
+    }
+
+    .required {
+      color: var(--danger);
+      font-weight: 700;
+    }
+
+    select,
+    input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 11px 10px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+      background: #fff;
+    }
+
+    select:focus,
+    input:focus {
+      outline: 3px solid #2563eb22;
+      border-color: var(--primary);
+    }
+
+    .hidden { display: none; }
+
+    .error {
+      display: none;
+      margin-top: 5px;
+      color: var(--danger);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .hint {
+      margin-top: 9px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr;
       gap: 10px;
     }
 
-    .header-icon {
-      width: 28px;
-      height: 28px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .header-icon svg {
-      width: 16px;
-      height: 16px;
-      fill: #fff;
-    }
-
-    .header-text {
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 12px;
+      background: var(--primary);
       color: #fff;
-    }
-
-    .header-text h1 {
-      font-size: 13px;
-      font-weight: 600;
-      line-height: 1.2;
-    }
-
-    .header-text p {
-      font-size: 11px;
-      opacity: 0.75;
-      margin-top: 1px;
-    }
-
-    /* ── Content ── */
-    .content {
-      padding: 16px;
-    }
-
-    /* ── Toggle Section ── */
-    .toggle-card {
-      border: 1.5px solid var(--neutral-200);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 14px;
-      transition: border-color 0.2s;
-    }
-
-    .toggle-card.active-yes {
-      border-color: #1a6e3a;
-    }
-
-    .toggle-card.active-no {
-      border-color: #6e1a1a;
-    }
-
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      padding: 12px 14px;
-      gap: 12px;
-      background: var(--neutral-100);
-    }
-
-    .toggle-label {
-      flex: 1;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--neutral-700);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    /* Custom Toggle */
-    .toggle-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .toggle-txt {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--neutral-400);
-      transition: color 0.2s;
-      min-width: 30px;
-    }
-
-    .toggle-txt.active {
-      color: var(--neutral-700);
-    }
-
-    .toggle-switch {
-      position: relative;
-      width: 40px;
-      height: 22px;
+      border: 0;
+      border-radius: 9px;
+      font-weight: 700;
       cursor: pointer;
-    }
-
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      inset: 0;
-      background: var(--neutral-200);
-      border-radius: 22px;
-      transition: background 0.25s;
-    }
-
-    .slider::before {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      left: 3px;
-      top: 3px;
-      background: white;
-      border-radius: 50%;
-      transition: transform 0.25s;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
-
-    input:checked + .slider {
-      background: var(--gov-green);
-    }
-
-    input:checked + .slider::before {
-      transform: translateX(18px);
-    }
-
-    /* ── Status Box ── */
-    .status-box {
-      padding: 10px 14px;
-      display: none;
-    }
-
-    .status-box.visible {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .status-yes {
-      background: var(--gov-green-light);
-    }
-
-    .status-no {
-      background: var(--gov-red-light);
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: 3px;
-    }
-
-    .dot-yes { background: var(--gov-green); }
-    .dot-no  { background: var(--gov-red); }
-
-    .status-text {
-      font-size: 12px;
-      line-height: 1.4;
-      color: var(--neutral-700);
-    }
-
-    .status-text strong {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 1px;
-    }
-
-    /* ── Tipo Section ── */
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--neutral-400);
-      margin-bottom: 7px;
-    }
-
-    .tipo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-
-    .tipo-btn {
-      border: 1.5px solid var(--neutral-200);
-      background: #fff;
-      border-radius: 6px;
-      padding: 7px 8px;
-      cursor: pointer;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--neutral-700);
-      transition: all 0.15s;
-      line-height: 1.3;
-      font-family: var(--font);
-    }
-
-    .tipo-btn:hover {
-      border-color: var(--gov-blue-mid);
-      background: var(--gov-blue-light);
-    }
-
-    .tipo-btn.selected {
-      border-color: var(--gov-blue-mid);
-      background: var(--gov-blue-light);
-      color: var(--gov-blue);
-    }
-
-    .tipo-btn .tipo-icon {
-      display: block;
       font-size: 14px;
-      margin-bottom: 3px;
     }
 
-    /* ── Notas ── */
-    .notas-field {
-      width: 100%;
-      border: 1.5px solid var(--neutral-200);
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 12px;
-      font-family: var(--font);
-      color: var(--neutral-900);
-      resize: vertical;
-      min-height: 58px;
-      outline: none;
-      transition: border-color 0.15s;
-      margin-bottom: 14px;
-    }
+    button:hover { background: var(--primary-dark); }
 
-    .notas-field:focus {
-      border-color: var(--gov-blue-mid);
-    }
-
-    .notas-field::placeholder {
-      color: var(--neutral-400);
-    }
-
-    /* ── Salvar ── */
-    .btn-save {
-      width: 100%;
-      background: var(--gov-blue);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      font-family: var(--font);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      transition: background 0.15s;
-    }
-
-    .btn-save:hover {
-      background: var(--gov-blue-mid);
-    }
-
-    .btn-save:disabled {
-      background: var(--neutral-200);
-      color: var(--neutral-400);
+    button:disabled {
+      background: #94a3b8;
       cursor: not-allowed;
     }
 
-    .btn-save svg {
-      width: 14px;
-      height: 14px;
-      fill: currentColor;
-    }
-
-    /* ── Toast ── */
-    .toast {
-      position: fixed;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%) translateY(60px);
-      background: var(--neutral-900);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-      white-space: nowrap;
-      transition: transform 0.3s ease;
-      pointer-events: none;
-      z-index: 999;
-    }
-
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* ── Hidden sections ── */
-    .gov-details {
+    .success,
+    .warning {
       display: none;
+      margin-top: 14px;
+      padding: 11px;
+      border-radius: 9px;
+      font-size: 13px;
+      line-height: 1.45;
     }
 
-    .gov-details.visible {
-      display: block;
+    .success {
+      background: var(--success-bg);
+      color: var(--success-text);
     }
 
-    /* ── Loading ── */
-    .loading-bar {
-      height: 2px;
-      background: var(--gov-blue-light);
-      width: 100%;
-      overflow: hidden;
-      display: none;
-    }
-
-    .loading-bar.active {
-      display: block;
-    }
-
-    .loading-bar::after {
-      content: '';
-      display: block;
-      height: 100%;
-      width: 30%;
-      background: var(--gov-blue);
-      animation: loading 1s ease-in-out infinite;
-    }
-
-    @keyframes loading {
-      0%   { margin-left: -30%; }
-      100% { margin-left: 100%; }
+    .warning {
+      background: #fef3c7;
+      color: #92400e;
     }
   </style>
 </head>
+
 <body>
+  <main class="card" aria-labelledby="titulo">
+    <span class="badge">Governança de agenda</span>
+    <h1 id="titulo">Classificação da reunião</h1>
+    <p class="description">
+      Informe se esta reunião é crítica. Quando marcada como crítica, os campos adicionais serão obrigatórios antes do envio.
+    </p>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="header-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 3L2 9v1h2v10h16V10h2V9L12 3zm0 2.18L20 10H4L12 5.18zM6 10h2v8H6v-8zm4 0h4v8h-4v-8zm6 0h2v8h-2v-8z"/></svg>
-    </div>
-    <div class="header-text">
-      <h1>Poder Público</h1>
-      <p>Classificação de reunião</p>
-    </div>
-  </div>
+    <label for="emailCritico">Reunião crítica? <span class="required">*</span></label>
+    <select id="emailCritico" aria-describedby="erroEmailCritico">
+      <option value="">Selecione</option>
+      <option value="false">Não</option>
+      <option value="true">Sim</option>
+    </select>
+    <div class="error" id="erroEmailCritico">Selecione se a reunião é crítica.</div>
 
-  <div class="loading-bar" id="loadingBar"></div>
+    <section id="camposCriticos" class="hidden" aria-live="polite">
+      <label for="nivelCriticidade">Nível da criticidade <span class="required">*</span></label>
+      <select id="nivelCriticidade" aria-describedby="erroNivelCriticidade">
+        <option value="">Selecione</option>
+        <option value="Baixa">Baixa</option>
+        <option value="Média">Média</option>
+        <option value="Alta">Alta</option>
+        <option value="Crítica">Crítica</option>
+        <option value="Regulatória">Regulatória</option>
+        <option value="Executiva">Executiva</option>
+      </select>
+      <div class="error" id="erroNivelCriticidade">O nível da criticidade é obrigatório.</div>
 
-  <div class="content">
+      <label for="nomeCriticidade">Nome da criticidade <span class="required">*</span></label>
+      <input
+        id="nomeCriticidade"
+        type="text"
+        maxlength="120"
+        placeholder="Ex: Risco financeiro, incidente regulatório..."
+        aria-describedby="erroNomeCriticidade"
+      />
+      <div class="error" id="erroNomeCriticidade">O nome da criticidade é obrigatório.</div>
 
-    <!-- Toggle principal -->
-    <div class="toggle-card" id="toggleCard">
-      <div class="toggle-row">
-        <span class="toggle-label">Participação do Poder Público?</span>
-        <div class="toggle-wrap">
-          <span class="toggle-txt active" id="lblNao">NÃO</span>
-          <label class="toggle-switch">
-            <input type="checkbox" id="govToggle" onchange="handleToggle(this)">
-            <span class="slider"></span>
-          </label>
-          <span class="toggle-txt" id="lblSim">SIM</span>
-        </div>
-      </div>
+      <label for="entidadeCritica">Entidade crítica <span class="required">*</span></label>
+      <input
+        id="entidadeCritica"
+        type="text"
+        maxlength="120"
+        placeholder="Ex: Cliente, contrato, fornecedor, área..."
+        aria-describedby="erroEntidadeCritica"
+      />
+      <div class="error" id="erroEntidadeCritica">A entidade crítica é obrigatória.</div>
 
-      <div class="status-box status-yes" id="statusYes">
-        <div class="status-dot dot-yes"></div>
-        <div class="status-text">
-          <strong>Reunião com Poder Público</strong>
-          Esta reunião envolve órgãos ou representantes governamentais.
-        </div>
-      </div>
+      <p class="hint">
+        Estes dados serão salvos na reunião e usados pela validação automática antes do envio.
+      </p>
+    </section>
 
-      <div class="status-box status-no" id="statusNo">
-        <div class="status-dot dot-no"></div>
-        <div class="status-text">
-          <strong>Sem participação do Poder Público</strong>
-          Esta reunião não envolve órgãos ou representantes governamentais.
-        </div>
-      </div>
-    </div>
+    <button id="btnSalvar" type="button">Salvar classificação</button>
 
-    <!-- Detalhes — exibidos apenas quando SIM -->
-    <div class="gov-details" id="govDetails">
-
-      <div class="section-label">Esfera de governo</div>
-      <div class="tipo-grid" id="tipoGrid">
-        <button class="tipo-btn" onclick="selectTipo(this, 'federal')">
-          <span class="tipo-icon">🏛️</span>Federal
-        </button>
-        <button class="tipo-btn" onclick="selectTipo(this, 'estadual')">
-          <span class="tipo-icon">🗺️</span>Estadual
-        </button>
-        <button class="tipo-btn" onclick="selectTipo(this, 'municipal')">
-          <span class="tipo-icon">🏙️</span>Municipal
-        </button>
-        <button class="tipo-btn" onclick="selectTipo(this, 'outros')">
-          <span class="tipo-icon">🌐</span>Outros / Misto
-        </button>
-      </div>
-
-      <div class="section-label">Órgão / Observações (opcional)</div>
-      <textarea
-        class="notas-field"
-        id="notasField"
-        placeholder="Ex.: Prefeitura Municipal, SEFAZ, ANATEL..."
-        maxlength="300"
-      ></textarea>
-
+    <div class="success" id="mensagemSucesso">
+      Classificação salva com sucesso. A reunião já pode ser enviada, desde que os campos obrigatórios estejam válidos.
     </div>
 
-    <!-- Botão salvar -->
-    <button class="btn-save" id="btnSave" onclick="salvar()">
-      <svg viewBox="0 0 24 24"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm-5 16a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm3-10H5V5h10v4z"/></svg>
-      Salvar na Reunião
-    </button>
-
-  </div>
-
-  <div class="toast" id="toast"></div>
+    <div class="warning" id="mensagemAviso">
+      Não foi possível concluir a operação. Tente novamente.
+    </div>
+  </main>
 
   <script>
-    let tipoSelecionado = null;
-    let state = { govParticipation: false, tipo: null, notas: '' };
+    Office.onReady(() => {
+      const emailCritico = document.getElementById("emailCritico");
+      const camposCriticos = document.getElementById("camposCriticos");
+      const nivelCriticidade = document.getElementById("nivelCriticidade");
+      const nomeCriticidade = document.getElementById("nomeCriticidade");
+      const entidadeCritica = document.getElementById("entidadeCritica");
+      const btnSalvar = document.getElementById("btnSalvar");
+      const mensagemSucesso = document.getElementById("mensagemSucesso");
+      const mensagemAviso = document.getElementById("mensagemAviso");
 
-    // ── Office init ──
-    Office.onReady(function(info) {
-      if (info.host === Office.HostType.Outlook) {
-        carregarDadosExistentes();
-      }
+      carregarValoresExistentes();
+
+      emailCritico.addEventListener("change", () => {
+        limparMensagens();
+
+        if (emailCritico.value === "true") {
+          camposCriticos.classList.remove("hidden");
+          nivelCriticidade.focus();
+        } else {
+          camposCriticos.classList.add("hidden");
+          nivelCriticidade.value = "";
+          nomeCriticidade.value = "";
+          entidadeCritica.value = "";
+        }
+      });
+
+      btnSalvar.addEventListener("click", () => {
+        limparMensagens();
+
+        if (!validarFormulario()) {
+          return;
+        }
+
+        btnSalvar.disabled = true;
+        btnSalvar.innerText = "Salvando...";
+
+        const dados = {
+          emailCritico: emailCritico.value === "true",
+          nivelCriticidade: nivelCriticidade.value,
+          nomeCriticidade: nomeCriticidade.value.trim(),
+          entidadeCritica: entidadeCritica.value.trim(),
+          dataClassificacao: new Date().toISOString()
+        };
+
+        salvarCustomProperties(dados, () => {
+          mensagemSucesso.style.display = "block";
+          btnSalvar.disabled = false;
+          btnSalvar.innerText = "Salvar classificação";
+        }, () => {
+          mensagemAviso.style.display = "block";
+          btnSalvar.disabled = false;
+          btnSalvar.innerText = "Salvar classificação";
+        });
+      });
     });
 
-    // ── Toggle ──
-    function handleToggle(checkbox) {
-      const isChecked = checkbox.checked;
-      const card = document.getElementById('toggleCard');
-      const details = document.getElementById('govDetails');
-      const statusYes = document.getElementById('statusYes');
-      const statusNo = document.getElementById('statusNo');
-      const lblSim = document.getElementById('lblSim');
-      const lblNao = document.getElementById('lblNao');
+    function carregarValoresExistentes() {
+      const item = Office.context.mailbox.item;
 
-      if (isChecked) {
-        card.className = 'toggle-card active-yes';
-        statusYes.className = 'status-box status-yes visible';
-        statusNo.className = 'status-box status-no';
-        details.className = 'gov-details visible';
-        lblSim.className = 'toggle-txt active';
-        lblNao.className = 'toggle-txt';
-      } else {
-        card.className = 'toggle-card active-no';
-        statusYes.className = 'status-box status-yes';
-        statusNo.className = 'status-box status-no visible';
-        details.className = 'gov-details';
-        lblSim.className = 'toggle-txt';
-        lblNao.className = 'toggle-txt active';
-        tipoSelecionado = null;
-        document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('selected'));
-      }
+      item.loadCustomPropertiesAsync((result) => {
+        if (result.status !== Office.AsyncResultStatus.Succeeded) {
+          return;
+        }
 
-      state.govParticipation = isChecked;
+        const props = result.value;
+        const emailCritico = props.get("emailCritico");
+        const nivelCriticidade = props.get("nivelCriticidade") || "";
+        const nomeCriticidade = props.get("nomeCriticidade") || "";
+        const entidadeCritica = props.get("entidadeCritica") || "";
+
+        const emailCriticoInput = document.getElementById("emailCritico");
+        const camposCriticos = document.getElementById("camposCriticos");
+
+        if (emailCritico === true || emailCritico === "true") {
+          emailCriticoInput.value = "true";
+          camposCriticos.classList.remove("hidden");
+        } else if (emailCritico === false || emailCritico === "false") {
+          emailCriticoInput.value = "false";
+        }
+
+        document.getElementById("nivelCriticidade").value = nivelCriticidade;
+        document.getElementById("nomeCriticidade").value = nomeCriticidade;
+        document.getElementById("entidadeCritica").value = entidadeCritica;
+      });
     }
 
-    // ── Tipo de esfera ──
-    function selectTipo(btn, tipo) {
-      document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      tipoSelecionado = tipo;
-      state.tipo = tipo;
-    }
+    function validarFormulario() {
+      let valido = true;
 
-    // ── Salvar via CustomProperties ──
-    function salvar() {
-      const notas = document.getElementById('notasField').value.trim();
-      state.notas = notas;
-      state.tipo = tipoSelecionado;
+      const emailCritico = document.getElementById("emailCritico");
+      const nivelCriticidade = document.getElementById("nivelCriticidade");
+      const nomeCriticidade = document.getElementById("nomeCriticidade");
+      const entidadeCritica = document.getElementById("entidadeCritica");
 
-      if (state.govParticipation && !tipoSelecionado) {
-        showToast('⚠ Selecione a esfera de governo.');
-        return;
+      if (!emailCritico.value) {
+        mostrarErro("erroEmailCritico");
+        valido = false;
       }
 
-      setLoading(true);
+      if (emailCritico.value === "true") {
+        if (!nivelCriticidade.value) {
+          mostrarErro("erroNivelCriticidade");
+          valido = false;
+        }
 
-      Office.context.mailbox.item.loadCustomPropertiesAsync(function(result) {
-        const customProps = result.value;
+        if (!nomeCriticidade.value.trim()) {
+          mostrarErro("erroNomeCriticidade");
+          valido = false;
+        }
 
-        customProps.set('govParticipation', state.govParticipation ? '1' : '0');
-        customProps.set('govTipo', tipoSelecionado || '');
-        customProps.set('govNotas', notas);
-        customProps.set('govUpdatedAt', new Date().toISOString());
+        if (!entidadeCritica.value.trim()) {
+          mostrarErro("erroEntidadeCritica");
+          valido = false;
+        }
+      }
 
-        customProps.saveAsync(function(saveResult) {
-          setLoading(false);
+      return valido;
+    }
+
+    function salvarCustomProperties(dados, onSuccess, onError) {
+      const item = Office.context.mailbox.item;
+
+      item.loadCustomPropertiesAsync((result) => {
+        if (result.status !== Office.AsyncResultStatus.Succeeded) {
+          onError();
+          return;
+        }
+
+        const props = result.value;
+
+        props.set("emailCritico", dados.emailCritico);
+        props.set("nivelCriticidade", dados.nivelCriticidade);
+        props.set("nomeCriticidade", dados.nomeCriticidade);
+        props.set("entidadeCritica", dados.entidadeCritica);
+        props.set("dataClassificacao", dados.dataClassificacao);
+
+        props.saveAsync((saveResult) => {
           if (saveResult.status === Office.AsyncResultStatus.Succeeded) {
-            atualizarAssuntoReuniao(state.govParticipation);
-            showToast('✓ Classificação salva com sucesso!');
+            onSuccess();
           } else {
-            showToast('Erro ao salvar. Tente novamente.');
+            onError();
           }
         });
       });
     }
 
-    // ── Atualizar assunto com tag [GOV] ──
-    function atualizarAssuntoReuniao(temGov) {
-      const item = Office.context.mailbox.item;
-      item.subject.getAsync(function(result) {
-        if (result.status !== Office.AsyncResultStatus.Succeeded) return;
+    function mostrarErro(id) {
+      document.getElementById(id).style.display = "block";
+    }
 
-        let assunto = result.value;
-
-        // Remove tag anterior se existir
-        assunto = assunto.replace(/^\[GOV\]\s*/, '').replace(/\s*\[GOV\]$/, '').trim();
-
-        if (temGov) {
-          assunto = '[GOV] ' + assunto;
-        }
-
-        item.subject.setAsync(assunto, function() {});
+    function limparMensagens() {
+      document.querySelectorAll(".error").forEach((e) => {
+        e.style.display = "none";
       });
-    }
 
-    // ── Carregar dados existentes ──
-    function carregarDadosExistentes() {
-      Office.context.mailbox.item.loadCustomPropertiesAsync(function(result) {
-        if (result.status !== Office.AsyncResultStatus.Succeeded) return;
-
-        const props = result.value;
-        const gov = props.get('govParticipation');
-        const tipo = props.get('govTipo');
-        const notas = props.get('govNotas');
-
-        if (gov !== null) {
-          const toggle = document.getElementById('govToggle');
-          toggle.checked = (gov === '1');
-          handleToggle(toggle);
-        }
-
-        if (tipo) {
-          const btn = document.querySelector(`.tipo-btn[onclick*="${tipo}"]`);
-          if (btn) selectTipo(btn, tipo);
-        }
-
-        if (notas) {
-          document.getElementById('notasField').value = notas;
-        }
-      });
-    }
-
-    // ── Helpers ──
-    function setLoading(active) {
-      document.getElementById('loadingBar').className = active ? 'loading-bar active' : 'loading-bar';
-      document.getElementById('btnSave').disabled = active;
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2800);
+      document.getElementById("mensagemSucesso").style.display = "none";
+      document.getElementById("mensagemAviso").style.display = "none";
     }
   </script>
 </body>
