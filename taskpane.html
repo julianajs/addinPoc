@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Participação do Poder Público</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    :root {
+      --gov-blue: #1a3a6e;
+      --gov-blue-light: #e8edf6;
+      --gov-blue-mid: #2e5fa3;
+      --gov-green: #1a6e3a;
+      --gov-green-light: #e8f6ed;
+      --gov-red: #6e1a1a;
+      --gov-red-light: #f6e8e8;
+      --neutral-100: #f5f5f5;
+      --neutral-200: #e8e8e8;
+      --neutral-400: #9e9e9e;
+      --neutral-700: #3d3d3d;
+      --neutral-900: #1a1a1a;
+      --font: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: 13px;
+      color: var(--neutral-900);
+      background: #fff;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--gov-blue);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .header-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: #fff;
+    }
+
+    .header-text {
+      color: #fff;
+    }
+
+    .header-text h1 {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .header-text p {
+      font-size: 11px;
+      opacity: 0.75;
+      margin-top: 1px;
+    }
+
+    /* ── Content ── */
+    .content {
+      padding: 16px;
+    }
+
+    /* ── Toggle Section ── */
+    .toggle-card {
+      border: 1.5px solid var(--neutral-200);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .toggle-card.active-yes {
+      border-color: #1a6e3a;
+    }
+
+    .toggle-card.active-no {
+      border-color: #6e1a1a;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      gap: 12px;
+      background: var(--neutral-100);
+    }
+
+    .toggle-label {
+      flex: 1;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--neutral-700);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Custom Toggle */
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toggle-txt {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--neutral-400);
+      transition: color 0.2s;
+      min-width: 30px;
+    }
+
+    .toggle-txt.active {
+      color: var(--neutral-700);
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      cursor: pointer;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: var(--neutral-200);
+      border-radius: 22px;
+      transition: background 0.25s;
+    }
+
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    input:checked + .slider {
+      background: var(--gov-green);
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(18px);
+    }
+
+    /* ── Status Box ── */
+    .status-box {
+      padding: 10px 14px;
+      display: none;
+    }
+
+    .status-box.visible {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .status-yes {
+      background: var(--gov-green-light);
+    }
+
+    .status-no {
+      background: var(--gov-red-light);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .dot-yes { background: var(--gov-green); }
+    .dot-no  { background: var(--gov-red); }
+
+    .status-text {
+      font-size: 12px;
+      line-height: 1.4;
+      color: var(--neutral-700);
+    }
+
+    .status-text strong {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    /* ── Tipo Section ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--neutral-400);
+      margin-bottom: 7px;
+    }
+
+    .tipo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tipo-btn {
+      border: 1.5px solid var(--neutral-200);
+      background: #fff;
+      border-radius: 6px;
+      padding: 7px 8px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--neutral-700);
+      transition: all 0.15s;
+      line-height: 1.3;
+      font-family: var(--font);
+    }
+
+    .tipo-btn:hover {
+      border-color: var(--gov-blue-mid);
+      background: var(--gov-blue-light);
+    }
+
+    .tipo-btn.selected {
+      border-color: var(--gov-blue-mid);
+      background: var(--gov-blue-light);
+      color: var(--gov-blue);
+    }
+
+    .tipo-btn .tipo-icon {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    /* ── Notas ── */
+    .notas-field {
+      width: 100%;
+      border: 1.5px solid var(--neutral-200);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-family: var(--font);
+      color: var(--neutral-900);
+      resize: vertical;
+      min-height: 58px;
+      outline: none;
+      transition: border-color 0.15s;
+      margin-bottom: 14px;
+    }
+
+    .notas-field:focus {
+      border-color: var(--gov-blue-mid);
+    }
+
+    .notas-field::placeholder {
+      color: var(--neutral-400);
+    }
+
+    /* ── Salvar ── */
+    .btn-save {
+      width: 100%;
+      background: var(--gov-blue);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: background 0.15s;
+    }
+
+    .btn-save:hover {
+      background: var(--gov-blue-mid);
+    }
+
+    .btn-save:disabled {
+      background: var(--neutral-200);
+      color: var(--neutral-400);
+      cursor: not-allowed;
+    }
+
+    .btn-save svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--neutral-900);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: transform 0.3s ease;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Hidden sections ── */
+    .gov-details {
+      display: none;
+    }
+
+    .gov-details.visible {
+      display: block;
+    }
+
+    /* ── Loading ── */
+    .loading-bar {
+      height: 2px;
+      background: var(--gov-blue-light);
+      width: 100%;
+      overflow: hidden;
+      display: none;
+    }
+
+    .loading-bar.active {
+      display: block;
+    }
+
+    .loading-bar::after {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 30%;
+      background: var(--gov-blue);
+      animation: loading 1s ease-in-out infinite;
+    }
+
+    @keyframes loading {
+      0%   { margin-left: -30%; }
+      100% { margin-left: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 3L2 9v1h2v10h16V10h2V9L12 3zm0 2.18L20 10H4L12 5.18zM6 10h2v8H6v-8zm4 0h4v8h-4v-8zm6 0h2v8h-2v-8z"/></svg>
+    </div>
+    <div class="header-text">
+      <h1>Poder Público</h1>
+      <p>Classificação de reunião</p>
+    </div>
+  </div>
+
+  <div class="loading-bar" id="loadingBar"></div>
+
+  <div class="content">
+
+    <!-- Toggle principal -->
+    <div class="toggle-card" id="toggleCard">
+      <div class="toggle-row">
+        <span class="toggle-label">Participação do Poder Público?</span>
+        <div class="toggle-wrap">
+          <span class="toggle-txt active" id="lblNao">NÃO</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="govToggle" onchange="handleToggle(this)">
+            <span class="slider"></span>
+          </label>
+          <span class="toggle-txt" id="lblSim">SIM</span>
+        </div>
+      </div>
+
+      <div class="status-box status-yes" id="statusYes">
+        <div class="status-dot dot-yes"></div>
+        <div class="status-text">
+          <strong>Reunião com Poder Público</strong>
+          Esta reunião envolve órgãos ou representantes governamentais.
+        </div>
+      </div>
+
+      <div class="status-box status-no" id="statusNo">
+        <div class="status-dot dot-no"></div>
+        <div class="status-text">
+          <strong>Sem participação do Poder Público</strong>
+          Esta reunião não envolve órgãos ou representantes governamentais.
+        </div>
+      </div>
+    </div>
+
+    <!-- Detalhes — exibidos apenas quando SIM -->
+    <div class="gov-details" id="govDetails">
+
+      <div class="section-label">Esfera de governo</div>
+      <div class="tipo-grid" id="tipoGrid">
+        <button class="tipo-btn" onclick="selectTipo(this, 'federal')">
+          <span class="tipo-icon">🏛️</span>Federal
+        </button>
+        <button class="tipo-btn" onclick="selectTipo(this, 'estadual')">
+          <span class="tipo-icon">🗺️</span>Estadual
+        </button>
+        <button class="tipo-btn" onclick="selectTipo(this, 'municipal')">
+          <span class="tipo-icon">🏙️</span>Municipal
+        </button>
+        <button class="tipo-btn" onclick="selectTipo(this, 'outros')">
+          <span class="tipo-icon">🌐</span>Outros / Misto
+        </button>
+      </div>
+
+      <div class="section-label">Órgão / Observações (opcional)</div>
+      <textarea
+        class="notas-field"
+        id="notasField"
+        placeholder="Ex.: Prefeitura Municipal, SEFAZ, ANATEL..."
+        maxlength="300"
+      ></textarea>
+
+    </div>
+
+    <!-- Botão salvar -->
+    <button class="btn-save" id="btnSave" onclick="salvar()">
+      <svg viewBox="0 0 24 24"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm-5 16a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm3-10H5V5h10v4z"/></svg>
+      Salvar na Reunião
+    </button>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let tipoSelecionado = null;
+    let state = { govParticipation: false, tipo: null, notas: '' };
+
+    // ── Office init ──
+    Office.onReady(function(info) {
+      if (info.host === Office.HostType.Outlook) {
+        carregarDadosExistentes();
+      }
+    });
+
+    // ── Toggle ──
+    function handleToggle(checkbox) {
+      const isChecked = checkbox.checked;
+      const card = document.getElementById('toggleCard');
+      const details = document.getElementById('govDetails');
+      const statusYes = document.getElementById('statusYes');
+      const statusNo = document.getElementById('statusNo');
+      const lblSim = document.getElementById('lblSim');
+      const lblNao = document.getElementById('lblNao');
+
+      if (isChecked) {
+        card.className = 'toggle-card active-yes';
+        statusYes.className = 'status-box status-yes visible';
+        statusNo.className = 'status-box status-no';
+        details.className = 'gov-details visible';
+        lblSim.className = 'toggle-txt active';
+        lblNao.className = 'toggle-txt';
+      } else {
+        card.className = 'toggle-card active-no';
+        statusYes.className = 'status-box status-yes';
+        statusNo.className = 'status-box status-no visible';
+        details.className = 'gov-details';
+        lblSim.className = 'toggle-txt';
+        lblNao.className = 'toggle-txt active';
+        tipoSelecionado = null;
+        document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('selected'));
+      }
+
+      state.govParticipation = isChecked;
+    }
+
+    // ── Tipo de esfera ──
+    function selectTipo(btn, tipo) {
+      document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      tipoSelecionado = tipo;
+      state.tipo = tipo;
+    }
+
+    // ── Salvar via CustomProperties ──
+    function salvar() {
+      const notas = document.getElementById('notasField').value.trim();
+      state.notas = notas;
+      state.tipo = tipoSelecionado;
+
+      if (state.govParticipation && !tipoSelecionado) {
+        showToast('⚠ Selecione a esfera de governo.');
+        return;
+      }
+
+      setLoading(true);
+
+      Office.context.mailbox.item.loadCustomPropertiesAsync(function(result) {
+        const customProps = result.value;
+
+        customProps.set('govParticipation', state.govParticipation ? '1' : '0');
+        customProps.set('govTipo', tipoSelecionado || '');
+        customProps.set('govNotas', notas);
+        customProps.set('govUpdatedAt', new Date().toISOString());
+
+        customProps.saveAsync(function(saveResult) {
+          setLoading(false);
+          if (saveResult.status === Office.AsyncResultStatus.Succeeded) {
+            atualizarAssuntoReuniao(state.govParticipation);
+            showToast('✓ Classificação salva com sucesso!');
+          } else {
+            showToast('Erro ao salvar. Tente novamente.');
+          }
+        });
+      });
+    }
+
+    // ── Atualizar assunto com tag [GOV] ──
+    function atualizarAssuntoReuniao(temGov) {
+      const item = Office.context.mailbox.item;
+      item.subject.getAsync(function(result) {
+        if (result.status !== Office.AsyncResultStatus.Succeeded) return;
+
+        let assunto = result.value;
+
+        // Remove tag anterior se existir
+        assunto = assunto.replace(/^\[GOV\]\s*/, '').replace(/\s*\[GOV\]$/, '').trim();
+
+        if (temGov) {
+          assunto = '[GOV] ' + assunto;
+        }
+
+        item.subject.setAsync(assunto, function() {});
+      });
+    }
+
+    // ── Carregar dados existentes ──
+    function carregarDadosExistentes() {
+      Office.context.mailbox.item.loadCustomPropertiesAsync(function(result) {
+        if (result.status !== Office.AsyncResultStatus.Succeeded) return;
+
+        const props = result.value;
+        const gov = props.get('govParticipation');
+        const tipo = props.get('govTipo');
+        const notas = props.get('govNotas');
+
+        if (gov !== null) {
+          const toggle = document.getElementById('govToggle');
+          toggle.checked = (gov === '1');
+          handleToggle(toggle);
+        }
+
+        if (tipo) {
+          const btn = document.querySelector(`.tipo-btn[onclick*="${tipo}"]`);
+          if (btn) selectTipo(btn, tipo);
+        }
+
+        if (notas) {
+          document.getElementById('notasField').value = notas;
+        }
+      });
+    }
+
+    // ── Helpers ──
+    function setLoading(active) {
+      document.getElementById('loadingBar').className = active ? 'loading-bar active' : 'loading-bar';
+      document.getElementById('btnSave').disabled = active;
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+  </script>
+</body>
+</html>
