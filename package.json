@@ -1,0 +1,23 @@
+{
+  "name": "outlook-meeting-classification-addin",
+  "version": "1.0.0",
+  "description": "Add-in para Outlook que marca reuniões como públicas para monitoramento via Power Automate",
+  "main": "taskpane.js",
+  "scripts": {
+    "start": "http-server -p 3000 -c-1 --cors",
+    "dev": "http-server -p 3000 -c-1 --cors --gzip",
+    "generate-icons": "node generate-icons.js"
+  },
+  "keywords": [
+    "outlook",
+    "add-in",
+    "power-automate",
+    "office-js"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {}
+}
