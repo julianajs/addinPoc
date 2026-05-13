@@ -8,37 +8,75 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Monitorar reunião</h1>
-        </div>
+    <main class="app-shell" aria-label="Painel do add-in Monitorar reunião">
+        <section class="hero-card">
+            <div class="hero-icon" aria-hidden="true">✓</div>
+            <div>
+                <p class="eyebrow">Outlook + Power Automate</p>
+                <h1>Monitorar reunião</h1>
+                <p class="hero-description">Envie os dados da reunião atual para o fluxo de automação com segurança e rastreabilidade.</p>
+            </div>
+        </section>
 
-        <div class="content">
-            <div id="status-message" class="status-message"></div>
+        <section id="status-message" class="status-message" role="status" aria-live="polite"></section>
 
-            <!-- Seção de Ação -->
-            <div class="action-section">
-                <h3>Monitorar Reunião</h3>
-                <p>Ao clicar no botão abaixo, esta reunião será marcada como pública para monitoramento.</p>
-                
-                <button id="mark-public-button" class="btn-primary">
-                    <span class="flag-icon">🚩</span>
-                    Monitorar
-                </button>
+        <section class="card meeting-card" aria-labelledby="meeting-title">
+            <div class="card-header">
+                <div>
+                    <p class="section-label">Reunião selecionada</p>
+                    <h2 id="meeting-title">Carregando dados...</h2>
+                </div>
+                <span id="meeting-chip" class="chip chip-muted">Aguardando</span>
             </div>
 
-            <!-- Seção de Resultado -->
-            <div id="result-section" class="result-section hidden">
-                <h3>Resultado da Operação</h3>
-                <div id="result-message" class="result-message"></div>
-                <button id="close-button" class="btn-secondary">Fechar</button>
+            <dl class="meeting-details">
+                <div>
+                    <dt>Organizador</dt>
+                    <dd id="meeting-organizer">—</dd>
+                </div>
+                <div>
+                    <dt>Início</dt>
+                    <dd id="meeting-start">—</dd>
+                </div>
+                <div>
+                    <dt>Término</dt>
+                    <dd id="meeting-end">—</dd>
+                </div>
+                <div>
+                    <dt>Local</dt>
+                    <dd id="meeting-location">—</dd>
+                </div>
+            </dl>
+        </section>
+
+        <section class="card action-card" aria-labelledby="action-title">
+            <div class="action-copy">
+                <p class="section-label">Ação principal</p>
+                <h2 id="action-title">Disparar fluxo de monitoramento</h2>
+                <p>Confirme o envio dos dados da reunião para o Power Automate. Após o envio, você poderá validar a execução no histórico do fluxo.</p>
             </div>
 
-            <!-- Indicador de Carregamento -->
-            <div id="loading" class="loading hidden">
-                <div class="spinner"></div>
-                <p>Processando requisição...</p>
+            <button id="mark-public-button" class="btn-primary" type="button">
+                <span class="button-icon" aria-hidden="true">🚩</span>
+                <span>Monitorar reunião</span>
+            </button>
+        </section>
+
+        <section id="result-section" class="result-card hidden" aria-live="polite">
+            <div class="result-icon" aria-hidden="true">✓</div>
+            <div class="result-content">
+                <h2>Operação concluída</h2>
+                <p id="result-message">A reunião foi enviada ao Power Automate.</p>
+                <button id="close-button" class="btn-secondary" type="button">Ocultar mensagem</button>
             </div>
+        </section>
+    </main>
+
+    <div id="loading" class="loading hidden" role="alert" aria-live="assertive" aria-label="Processando requisição">
+        <div class="loading-card">
+            <div class="spinner" aria-hidden="true"></div>
+            <p>Enviando para o Power Automate...</p>
+            <span>Isso pode levar alguns segundos.</span>
         </div>
     </div>
 
