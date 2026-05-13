@@ -7,12 +7,12 @@
   xsi:type="MailApp">
 
   <Id>12345678-1234-1234-1234-123456789012</Id>
-  <Version>1.0.1.0</Version>
+  <Version>1.0.0.0</Version>
   <ProviderName>Add-in Monitorar reunião</ProviderName>
   <DefaultLocale>pt-BR</DefaultLocale>
 
   <DisplayName DefaultValue="Monitorar reunião"/>
-  <Description DefaultValue="Abre um painel manual para enviar dados da reunião ao Power Automate. Não executa ações ao clicar em Enviar."/>
+  <Description DefaultValue="Marca uma reunião como pública para monitoramento através do Power Automate"/>
 
   <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-80.png"/>
   <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-80.png"/>
@@ -20,7 +20,6 @@
 
   <AppDomains>
     <AppDomain>https://kind-dune-04677490f.7.azurestaticapps.net</AppDomain>
-    <AppDomain>https://default783a2c3aadb945ef8d986601d1686f.35.environment.api.powerplatform.com</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -50,9 +49,6 @@
   </Rule>
 
   <DisableEntityHighlighting>false</DisableEntityHighlighting>
-
-  <!-- Manifest corrigido: não contém ItemSend, LaunchEvent, OnMessageSend ou OnAppointmentSend.
-       O fluxo do Power Automate só é chamado pelo botão manual dentro do taskpane. -->
 
   <VersionOverrides
     xmlns="http://schemas.microsoft.com/office/mailappversionoverrides"
@@ -97,29 +93,6 @@
               <Group id="apptReadGroup">
                 <Label resid="groupLabel"/>
                 <Control xsi:type="Button" id="apptReadButton">
-                  <Label resid="buttonLabel"/>
-                  <Supertip>
-                    <Title resid="buttonTitle"/>
-                    <Description resid="buttonDesc"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="icon16"/>
-                    <bt:Image size="32" resid="icon32"/>
-                    <bt:Image size="80" resid="icon80"/>
-                  </Icon>
-                  <Action xsi:type="ShowTaskpane">
-                    <SourceLocation resid="taskpaneUrl"/>
-                  </Action>
-                </Control>
-              </Group>
-            </OfficeTab>
-          </ExtensionPoint>
-
-          <ExtensionPoint xsi:type="AppointmentAttendeeCommandSurface">
-            <OfficeTab id="TabDefault">
-              <Group id="apptAttendeeReadGroup">
-                <Label resid="groupLabel"/>
-                <Control xsi:type="Button" id="apptAttendeeReadButton">
                   <Label resid="buttonLabel"/>
                   <Supertip>
                     <Title resid="buttonTitle"/>
