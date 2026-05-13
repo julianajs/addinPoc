@@ -5,7 +5,7 @@
 
 // Configuração da URL do Power Automate
 // SUBSTITUA PELA URL REAL DO SEU FLUXO
-const POWER_AUTOMATE_URL = "https://prod-xx.brazilsouth.logic.azure.com:443/workflows/xxxxx/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=xxxxx";
+const POWER_AUTOMATE_URL = "https://default783a2c3aadb945ef8d986601d1686f.35.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/69ef74a9b09a4859a90ed5fdd79f09fa/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sXz7nrvkzJQnVMnLNKusvLyiJvvOyC0oHDYM2R264Ec";
 
 // Estado da aplicação
 let appState = {

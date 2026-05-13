@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/appforoffice/1.1"
            xsi:type="MailAppType">
   <Id>12345678-1234-1234-1234-123456789012</Id>
   <Version>1.0.0.0</Version>
@@ -58,14 +59,14 @@
   
   <Resources>
     <bt:Images>
-      <bt:Image id="icon16" DefaultValue="https://localhost:3000/icons/red-flag-16.png"/>
-      <bt:Image id="icon25" DefaultValue="https://localhost:3000/icons/red-flag-25.png"/>
-      <bt:Image id="icon32" DefaultValue="https://localhost:3000/icons/red-flag-32.png"/>
-      <bt:Image id="icon80" DefaultValue="https://localhost:3000/icons/red-flag-80.png"/>
+      <bt:Image id="icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-16.png"/>
+      <bt:Image id="icon25" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-25.png"/>
+      <bt:Image id="icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-32.png"/>
+      <bt:Image id="icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-80.png"/>
     </bt:Images>
     <bt:Urls>
-      <bt:Url id="functionfile" DefaultValue="https://localhost:3000/function-file/function-file.html"/>
-      <bt:Url id="taskpaneUrl" DefaultValue="https://localhost:3000/taskpane.html"/>
+      <bt:Url id="functionfile" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/function-file/function-file.html"/>
+      <bt:Url id="taskpaneUrl" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/taskpane.html"/>
     </bt:Urls>
     <bt:ShortStrings>
       <bt:String id="groupLabel" DefaultValue="Monitoramento"/>
