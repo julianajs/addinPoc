@@ -53,7 +53,7 @@ Este guia ajuda a personalizar o add-in conforme suas necessidades.
 
 ```html
 <!-- Título da seção -->
-<h1>Classificação de Reunião Crítica</h1>
+<h1>Monitorar Reunião</h1>
 <!-- Altere para: -->
 <h1>Sistema de Alertas de Reunião</h1>
 

@@ -93,13 +93,13 @@ O add-in agora deve aparecer na faixa de opções.
 ### Teste 1: Verificar Aparição na Faixa de Opções
 
 1. Abra uma mensagem de reunião no Outlook
-2. Procure na faixa de opções por "Marcar Reunião Pública"
+2. Procure na faixa de opções por "Monitorar Reunião"
 3. Verifique se o ícone está visível e é uma bandeira vermelha
 
 ### Teste 2: Carregar Informações da Reunião
 
 1. Abra uma mensagem de reunião
-2. Clique no botão "Marcar Reunião Pública"
+2. Clique no botão "Monitorar Reunião"
 3. Verifique se as informações aparecem corretamente:
    - ✓ Assunto da reunião
    - ✓ Data e hora

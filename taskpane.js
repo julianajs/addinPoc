@@ -1,6 +1,6 @@
 // ============================================
 // ARQUIVO: taskpane.js
-// Lógica do Add-in Outlook - Marcar Reunião Pública
+// Lógica do Add-in Outlook - Monitorar Reunião
 // ============================================
 
 // Configuração da URL do Power Automate

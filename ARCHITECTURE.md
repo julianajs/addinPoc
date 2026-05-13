@@ -13,14 +13,14 @@ Visualização da arquitetura e fluxo de dados do add-in.
 │  │  ┌────────────────────────────────────────────────────┐  │   │
 │  │  │  Faixa de Opções (Ribbon)                          │  │   │
 │  │  │  ┌──────────────────────────────────────┐          │  │   │
-│  │  │  │ [🚩] Marcar Reunião Pública         │ ◄─────┐  │   │
+│  │  │  │ [🚩] Monitorar Reunião              │ ◄─────┐  │   │
 │  │  │  └──────────────────────────────────────┘        │  │   │
 │  │  └────────────────────────────────────────────────────┘  │   │
 │  │                                                            │   │
 │  │  ┌────────────────────────────────────────────────────┐  │   │
 │  │  │  Painel de Tarefas (Task Pane)                     │  │   │
 │  │  │  ┌──────────────────────────────────────┐          │  │   │
-│  │  │  │ Classificação de Reunião Crítica    │          │  │   │
+│  │  │  │ Monitorar Reunião                   │          │  │   │
 │  │  │  ├──────────────────────────────────────┤          │  │   │
 │  │  │  │ Assunto: ...                         │          │  │   │
 │  │  │  │ Data/Hora: ...                       │          │  │   │
@@ -169,7 +169,7 @@ Visualização da arquitetura e fluxo de dados do add-in.
 1. Usuário abre reunião em Outlook
    └─ Office.context.mailbox.item carregado
 
-2. Clica em "Marcar Reunião Pública"
+2. Clica em "Monitorar Reunião"
    └─ handleMarkAsPublic() acionada
 
 3. Valida dados

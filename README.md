@@ -1,6 +1,6 @@
-# Add-in Outlook - Classificação de Reunião Crítica
+# Add-in Outlook - Monitorar Reunião
 
-Um add-in para Microsoft Outlook que marca reuniões como públicas para monitoramento através do Power Automate.
+Um add-in para Microsoft Outlook que marca reuniões para monitoramento através do Power Automate.
 
 ## 📋 Funcionalidades
 

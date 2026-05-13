@@ -15,7 +15,7 @@ Passos:
 1. Abrir Outlook Web ou Desktop
 2. Abrir uma mensagem de reunião
 3. Procurar a faixa de opções "Monitoramento"
-4. Verificar botão "Marcar Reunião Pública"
+4. Verificar botão "Monitorar Reunião"
 
 Resultado Esperado:
 ✓ Botão visível com ícone de bandeira vermelha
@@ -37,7 +37,7 @@ Passos:
    - Data: 13/05/2026 10:00
    - Organizador: responsavel@company.com
    
-2. Clicar no botão "Marcar Reunião Pública"
+2. Clicar no botão "Monitorar Reunião"
 3. Verificar se painel de tarefas abre
 4. Observar os dados carregados
 

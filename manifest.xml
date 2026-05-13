@@ -8,10 +8,10 @@
 
   <Id>12345678-1234-1234-1234-123456789012</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>Add-in Classificação de Reunião</ProviderName>
+  <ProviderName>Add-in Monitorar reunião</ProviderName>
   <DefaultLocale>pt-BR</DefaultLocale>
 
-  <DisplayName DefaultValue="Marcar Reunião Pública"/>
+  <DisplayName DefaultValue="Monitorar reunião"/>
   <Description DefaultValue="Marca uma reunião como pública para monitoramento através do Power Automate"/>
 
   <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-80.png"/>
@@ -129,8 +129,8 @@
 
       <bt:ShortStrings>
         <bt:String id="groupLabel" DefaultValue="Monitoramento"/>
-        <bt:String id="buttonLabel" DefaultValue="Marcar Reunião Pública"/>
-        <bt:String id="buttonTitle" DefaultValue="Marcar Reunião como Pública"/>
+        <bt:String id="buttonLabel" DefaultValue="Monitorar reunião"/>
+        <bt:String id="buttonTitle" DefaultValue="Monitorar Reunião"/>
       </bt:ShortStrings>
 
       <bt:LongStrings>

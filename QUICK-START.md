@@ -35,7 +35,7 @@ npx http-server -p 3000 -c-1 --cors --ssl
 3. Procure por "Obter Complementos" > "Meus complementos" > "+"
 4. Clique em "Fazer upload de meu manifesto"
 5. Selecione "manifest.xml"
-6. Clique no botão "Marcar Reunião Pública"
+6. Clique no botão "Monitorar Reunião"
 ```
 
 ## 📋 Arquivos Importantes
