@@ -20,6 +20,7 @@
 
   <AppDomains>
     <AppDomain>https://kind-dune-04677490f.7.azurestaticapps.net</AppDomain>
+    <AppDomain>https://default783a2c3aadb945ef8d986601d1686f.35.environment.api.powerplatform.com</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -93,6 +94,29 @@
               <Group id="apptReadGroup">
                 <Label resid="groupLabel"/>
                 <Control xsi:type="Button" id="apptReadButton">
+                  <Label resid="buttonLabel"/>
+                  <Supertip>
+                    <Title resid="buttonTitle"/>
+                    <Description resid="buttonDesc"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="taskpaneUrl"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+          <ExtensionPoint xsi:type="AppointmentAttendeeCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="apptAttendeeReadGroup">
+                <Label resid="groupLabel"/>
+                <Control xsi:type="Button" id="apptAttendeeReadButton">
                   <Label resid="buttonLabel"/>
                   <Supertip>
                     <Title resid="buttonTitle"/>
