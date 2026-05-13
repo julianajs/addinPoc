@@ -1,82 +1,142 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:bt="http://schemas.microsoft.com/office/appforoffice/1.1"
-           xsi:type="MailAppType">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
+  xsi:type="MailApp">
+
   <Id>12345678-1234-1234-1234-123456789012</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>Add-in Classificação de Reunião</ProviderName>
   <DefaultLocale>pt-BR</DefaultLocale>
-  
+
   <DisplayName DefaultValue="Marcar Reunião Pública"/>
   <Description DefaultValue="Marca uma reunião como pública para monitoramento através do Power Automate"/>
-  
+
+  <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-80.png"/>
+  <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-80.png"/>
+  <SupportUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net"/>
+
+  <AppDomains>
+    <AppDomain>https://kind-dune-04677490f.7.azurestaticapps.net</AppDomain>
+  </AppDomains>
+
   <Hosts>
-    <Host xsi:type="MailHost">
-      <DesktopFormFactor>
-        <FunctionFile resid="functionfile"/>
-        <ExtensionPoint xsi:type="MessageReadCommandSurface">
-          <OfficeTab id="TabDefault">
-            <Group id="msgreadgroup">
-              <Label resid="groupLabel"/>
-              <Control xsi:type="Button" id="msgreadbutton">
-                <Label resid="buttonLabel"/>
-                <Supertip>
-                  <Title resid="buttonTitle"/>
-                  <Description resid="buttonDesc"/>
-                </Supertip>
-                <Icon>
-                  <bt:Image size="16" resid="icon16"/>
-                  <bt:Image size="32" resid="icon32"/>
-                  <bt:Image size="80" resid="icon80"/>
-                </Icon>
-                <Action xsi:type="ShowTaskPane">
-                  <SourceLocation resid="taskpaneUrl"/>
-                </Action>
-              </Control>
-            </Group>
-          </OfficeTab>
-        </ExtensionPoint>
-      </DesktopFormFactor>
-      
-      <MobileFormFactor>
-        <FunctionFile resid="functionfile"/>
-        <ExtensionPoint xsi:type="MobileMessageReadCommandSurface">
-          <Control xsi:type="MobileButton" id="mobilebutton">
-            <Label resid="buttonLabel"/>
-            <Icon>
-              <bt:Image size="25" resid="icon25"/>
-              <bt:Image size="32" resid="icon32"/>
-            </Icon>
-            <Action xsi:type="ShowTaskPane">
-              <SourceLocation resid="taskpaneUrl"/>
-            </Action>
-          </Control>
-        </ExtensionPoint>
-      </MobileFormFactor>
-    </Host>
+    <Host Name="Mailbox"/>
   </Hosts>
-  
-  <Resources>
-    <bt:Images>
-      <bt:Image id="icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-16.png"/>
-      <bt:Image id="icon25" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-25.png"/>
-      <bt:Image id="icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-32.png"/>
-      <bt:Image id="icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-80.png"/>
-    </bt:Images>
-    <bt:Urls>
-      <bt:Url id="functionfile" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/function-file/function-file.html"/>
-      <bt:Url id="taskpaneUrl" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/taskpane.html"/>
-    </bt:Urls>
-    <bt:ShortStrings>
-      <bt:String id="groupLabel" DefaultValue="Monitoramento"/>
-      <bt:String id="buttonLabel" DefaultValue="Marcar Reunião Pública"/>
-      <bt:String id="buttonTitle" DefaultValue="Marcar Reunião como Pública"/>
-    </bt:ShortStrings>
-    <bt:LongStrings>
-      <bt:String id="buttonDesc" DefaultValue="Marca a reunião atual como pública para monitoramento no Power Automate"/>
-    </bt:LongStrings>
-  </Resources>
-  
+
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.5"/>
+    </Sets>
+  </Requirements>
+
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/taskpane.html"/>
+        <RequestedHeight>250</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
   <Permissions>ReadWriteMailbox</Permissions>
+
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
+    <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Read"/>
+  </Rule>
+
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides
+    xmlns="http://schemas.microsoft.com/office/mailappversionoverrides"
+    xsi:type="VersionOverridesV1_0">
+
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.5">
+        <bt:Set Name="Mailbox"/>
+      </bt:Sets>
+    </Requirements>
+
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <DesktopFormFactor>
+          <FunctionFile resid="functionFile"/>
+
+          <ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="msgReadGroup">
+                <Label resid="groupLabel"/>
+                <Control xsi:type="Button" id="msgReadButton">
+                  <Label resid="buttonLabel"/>
+                  <Supertip>
+                    <Title resid="buttonTitle"/>
+                    <Description resid="buttonDesc"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="taskpaneUrl"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+          <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="apptReadGroup">
+                <Label resid="groupLabel"/>
+                <Control xsi:type="Button" id="apptReadButton">
+                  <Label resid="buttonLabel"/>
+                  <Supertip>
+                    <Title resid="buttonTitle"/>
+                    <Description resid="buttonDesc"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="taskpaneUrl"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-16.png"/>
+        <bt:Image id="icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-32.png"/>
+        <bt:Image id="icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icons/red-flag-80.png"/>
+      </bt:Images>
+
+      <bt:Urls>
+        <bt:Url id="functionFile" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/function-file/function-file.html"/>
+        <bt:Url id="taskpaneUrl" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/taskpane.html"/>
+      </bt:Urls>
+
+      <bt:ShortStrings>
+        <bt:String id="groupLabel" DefaultValue="Monitoramento"/>
+        <bt:String id="buttonLabel" DefaultValue="Marcar Reunião Pública"/>
+        <bt:String id="buttonTitle" DefaultValue="Marcar Reunião como Pública"/>
+      </bt:ShortStrings>
+
+      <bt:LongStrings>
+        <bt:String id="buttonDesc" DefaultValue="Marca a reunião atual como pública para monitoramento no Power Automate"/>
+      </bt:LongStrings>
+    </Resources>
+
+  </VersionOverrides>
 </OfficeApp>
