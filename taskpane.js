@@ -4,6 +4,9 @@
 // Versão corrigida: captura robusta dos dados do item/reunião e disparo do Power Automate
 // ============================================
 
+// IMPORTANTE: este arquivo não registra evento de envio do Outlook.
+// O Power Automate só é chamado por handleMarkAsPublic(), acionado pelo clique manual no botão do taskpane.
+//
 // URL do gatilho HTTP do Power Automate.
 // Em produção, considere proteger esta URL em uma API intermediária para não expor o segredo no cliente.
 const POWER_AUTOMATE_URL = "https://default783a2c3aadb945ef8d986601d1686f.35.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/69ef74a9b09a4859a90ed5fdd79f09fa/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sXz7nrvkzJQnVMnLNKusvLyiJvvOyC0oHDYM2R264Ec";
@@ -35,7 +38,7 @@ async function initializeAddIn() {
         setupEventListeners();
         renderMeetingDetails();
         loadPreviousState();
-        showStatusMessage("Dados da reunião carregados. Clique em Monitorar para disparar o fluxo.", "success");
+        showStatusMessage("Dados carregados. O fluxo só será disparado pelo botão Monitorar reunião; o envio da reunião no Outlook não aciona esta automação.", "success");
     } catch (error) {
         console.error("Erro ao inicializar:", error);
         setupEventListeners();
