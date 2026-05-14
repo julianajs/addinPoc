@@ -330,17 +330,54 @@ function loadMeetingData() {
     if (resolved === total) render(D);
   }
 
-  /* 1. Item ID via getItemIdAsync (Mailbox 1.7+) com fallback */
+  /* 1. Item ID com múltiplas estratégias */
   try {
-    if (item.getItemIdAsync) {
+    var idResolvedCount = 0;
+    var resolvedId = "";
+
+    // Estratégia 1: getItemIdAsync (Mailbox 1.7+)
+    if (item.getItemIdAsync && typeof item.getItemIdAsync === "function") {
       item.getItemIdAsync(function(r) {
-        done("id", (r.status === Office.AsyncResultStatus.Succeeded) ? (r.value || "") : "");
+        if (r.status === Office.AsyncResultStatus.Succeeded && r.value) {
+          resolvedId = r.value;
+          idResolvedCount++;
+          log("Estratégia 1 - getItemIdAsync: " + (resolvedId.substring(0, 20) + "…"), "ok");
+          done("id", resolvedId);
+        } else if (++idResolvedCount === 1) {
+          // Se falhar, tenta estratégia 2
+          tryStrategy2();
+        }
       });
     } else {
-      // Fallback: itemId síncrono (Desktop/Mac) ou EWS ID
+      tryStrategy2();
+    }
+
+    function tryStrategy2() {
+      // Estratégia 2: itemId síncrono (Desktop/Mac)
       var syncId = item.itemId || "";
-      log("getItemIdAsync não disponível, usando itemId síncrono: " + (syncId ? syncId.substring(0,20)+"…" : "(vazio)"), syncId ? "ok" : "err");
-      done("id", syncId);
+      if (syncId) {
+        resolvedId = syncId;
+        log("Estratégia 2 - item.itemId síncrono: " + (syncId.substring(0, 20) + "…"), "ok");
+        done("id", resolvedId);
+      } else {
+        tryStrategy3();
+      }
+    }
+
+    function tryStrategy3() {
+      // Estratégia 3: Combinar subject + start + organizer para criar ID único
+      var subject = safeStr(item.subject);
+      var start = (item.start && item.start.toString) ? item.start.toString() : "";
+      var fallbackId = subject && start ? (subject.substring(0, 10) + "_" + new Date(start).getTime()) : "";
+      
+      if (fallbackId) {
+        resolvedId = fallbackId;
+        log("Estratégia 3 - ID composto (subject+timestamp): " + fallbackId.substring(0, 30) + "…", "ok");
+        done("id", resolvedId);
+      } else {
+        log("Nenhuma estratégia de ID funcionou", "err");
+        done("id", "");
+      }
     }
   } catch(e) { log("Exc id: " + e.message, "err"); done("id", ""); }
 
