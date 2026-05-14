@@ -3,20 +3,19 @@
   xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
-  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
   xsi:type="MailApp">
 
   <!-- Identificação básica -->
   <Id>a1b2c3d4-e5f6-7890-abcd-ef1234567890</Id>
-  <Version>1.0.0.0</Version>
+  <Version>1.0.1.0</Version>
   <ProviderName>Monitorar Reunião Pública</ProviderName>
   <DefaultLocale>pt-BR</DefaultLocale>
   <DisplayName DefaultValue="Monitorar Reunião Pública"/>
   <Description DefaultValue="Envia informações da reunião ao fluxo do Power Automate para monitoramento."/>
 
-  <!-- Ícones - arquivo SVG local (substituir URL_BASE pela sua URL de hospedagem) -->
-  <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
-  <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
+  <!-- Ícones usando imagem PNG (URL segura) -->
+  <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
+  <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
 
   <SupportUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net"/>
 
@@ -70,7 +69,7 @@
             <OfficeTab id="TabDefault">
               <Group id="msgReadGroup">
                 <Label resid="GroupLabel"/>
-                <!-- Botão direto na faixa de opções (não agrupado) -->
+                <!-- Botão direto na faixa de opções -->
                 <Control xsi:type="Button" id="MonitorarReuniaoBtn">
                   <Label resid="BtnLabel"/>
                   <Supertip>
@@ -121,9 +120,9 @@
     <!-- Recursos centralizados -->
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
-        <bt:Image id="Icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
-        <bt:Image id="Icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
+        <bt:Image id="Icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-16.png"/>
+        <bt:Image id="Icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-32.png"/>
+        <bt:Image id="Icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Commands.Url" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/commands.html"/>
@@ -131,7 +130,7 @@
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Monitoramento"/>
-        <bt:String id="BtnLabel" DefaultValue="Monitorar Reunião"/>
+        <bt:String id="BtnLabel" DefaultValue="Monitorar Reunião Pública"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="BtnDesc" DefaultValue="Abre o painel para enviar os dados desta reunião ao fluxo de monitoramento no Power Automate."/>
