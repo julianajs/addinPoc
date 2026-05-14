@@ -12,12 +12,10 @@
       --brand:       #0f4c81;
       --brand-light: #1a6bb5;
       --brand-dark:  #092d4e;
-      --success:     #16a34a;
-      --success-bg:  #dcfce7;
-      --warning:     #d97706;
-      --warning-bg:  #fef3c7;
       --error:       #dc2626;
       --error-bg:    #fee2e2;
+      --warning:     #d97706;
+      --warning-bg:  #fef3c7;
       --sent:        #7c3aed;
       --sent-bg:     #ede9fe;
       --surface:     #ffffff;
@@ -32,13 +30,13 @@
       --tr:          0.22s cubic-bezier(.4,0,.2,1);
     }
 
-    html, body { height: 100%; font-family: var(--font); background: var(--surface-2); color: var(--text-1); font-size: 14px; line-height: 1.5; }
-    .app { display: flex; flex-direction: column; min-height: 100vh; }
+    html, body { height:100%; font-family:var(--font); background:var(--surface-2); color:var(--text-1); font-size:14px; line-height:1.5; }
+    .app { display:flex; flex-direction:column; min-height:100vh; }
 
     .header {
-      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 60%, var(--brand-light) 100%);
-      padding: 18px 20px 16px; display: flex; align-items: center; gap: 12px;
-      box-shadow: 0 2px 8px rgba(9,45,78,.25);
+      background:linear-gradient(135deg,var(--brand-dark) 0%,var(--brand) 60%,var(--brand-light) 100%);
+      padding:18px 20px 16px; display:flex; align-items:center; gap:12px;
+      box-shadow:0 2px 8px rgba(9,45,78,.25);
     }
     .header-icon { width:36px; height:36px; background:rgba(255,255,255,.15); border-radius:8px; display:grid; place-items:center; flex-shrink:0; }
     .header-text h1 { font-size:14px; font-weight:700; color:#fff; line-height:1.2; }
@@ -46,18 +44,12 @@
 
     .body { flex:1; padding:16px; display:flex; flex-direction:column; gap:14px; overflow-y:auto; }
 
-    .status-banner {
-      border-radius: var(--radius); padding: 10px 14px;
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: 12.5px; font-weight: 500;
-      transition: all var(--tr); animation: slideIn .3s ease;
-    }
+    .status-banner { border-radius:var(--radius); padding:10px 14px; display:flex; align-items:flex-start; gap:10px; font-size:12.5px; font-weight:500; transition:all var(--tr); animation:slideIn .3s ease; }
     .status-banner.loading { background:#e0f2fe; color:#0369a1; border:1px solid #bae6fd; }
-    .status-banner.ready   { background:#f0f9ff; color:var(--brand); border:1px solid #bae6fd; }
+    .status-banner.ready   { background:#f0f9ff;  color:var(--brand); border:1px solid #bae6fd; }
     .status-banner.sending { background:var(--warning-bg); color:var(--warning); border:1px solid #fde68a; }
     .status-banner.sent    { background:var(--sent-bg); color:var(--sent); border:1px solid #c4b5fd; }
     .status-banner.error   { background:var(--error-bg); color:var(--error); border:1px solid #fca5a5; }
-
     .status-icon { flex-shrink:0; margin-top:1px; }
     .status-text .title  { font-weight:700; display:block; }
     .status-text .detail { font-weight:400; opacity:.8; font-size:11.5px; }
@@ -75,19 +67,14 @@
     .field-content { flex:1; min-width:0; }
     .field-label { font-size:10.5px; font-weight:700; color:var(--text-3); text-transform:uppercase; letter-spacing:.07em; margin-bottom:2px; }
     .field-value { font-size:12.5px; color:var(--text-1); word-break:break-word; line-height:1.4; }
-    .field-value.dim { color:var(--text-3); font-style:italic; }
+    .field-value.dim  { color:var(--text-3); font-style:italic; }
     .field-value.mono { font-family:'Consolas','Courier New',monospace; font-size:11px; color:var(--brand); background:#f0f4ff; padding:2px 6px; border-radius:4px; display:inline-block; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
     .attendees-wrap { display:flex; flex-wrap:wrap; gap:4px; margin-top:3px; }
     .pill { background:#e8f0fe; color:var(--brand); border-radius:99px; font-size:11px; font-weight:500; padding:2px 9px; border:1px solid #c7d9f7; }
     .pill.organizer { background:#fce7f3; color:#be185d; border-color:#f9a8d4; }
 
-    .btn-send {
-      width:100%; padding:13px 20px; border:none; border-radius:var(--radius);
-      font-family:var(--font); font-size:14px; font-weight:700; letter-spacing:.02em;
-      cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;
-      transition:all var(--tr); position:relative; overflow:hidden;
-    }
+    .btn-send { width:100%; padding:13px 20px; border:none; border-radius:var(--radius); font-family:var(--font); font-size:14px; font-weight:700; letter-spacing:.02em; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:all var(--tr); }
     .btn-send.state-ready   { background:linear-gradient(135deg,var(--brand),var(--brand-light)); color:#fff; box-shadow:0 4px 14px rgba(15,76,129,.35); }
     .btn-send.state-ready:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(15,76,129,.45); }
     .btn-send.state-sending { background:linear-gradient(135deg,#d97706,#f59e0b); color:#fff; cursor:not-allowed; animation:pulse 1.2s ease-in-out infinite; }
@@ -112,7 +99,7 @@
     .spinner { width:18px; height:18px; border:2.5px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; flex-shrink:0; }
     .spinner.sm { width:16px; height:16px; border-width:2px; }
 
-    @keyframes spin     { to { transform:rotate(360deg); } }
+    @keyframes spin     { to{transform:rotate(360deg)} }
     @keyframes pulse    { 0%,100%{opacity:1}50%{opacity:.75} }
     @keyframes slideIn  { from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none} }
     @keyframes fadeIn   { from{opacity:0}to{opacity:1} }
@@ -142,7 +129,7 @@
         <div class="spinner sm" style="border-color:rgba(3,105,161,.3);border-top-color:#0369a1;"></div>
       </div>
       <div class="status-text">
-        <span class="title" id="statusTitle">Inicializando Office.js…</span>
+        <span class="title"  id="statusTitle">Inicializando Office.js…</span>
         <span class="detail" id="statusDetail">Aguarde enquanto o suplemento carrega.</span>
       </div>
     </div>
@@ -233,62 +220,64 @@
   <footer class="footer">
     <p>Monitorar Reunião Pública &nbsp;·&nbsp; Power Automate Integration</p>
   </footer>
-
 </div>
+
 <script>
-/* ─── Config ───────────────────────────────────────── */
-const FLOW_URL = "https://default783a2c3aadb945ef8d986601d1686f.35.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/69ef74a9b09a4859a90ed5fdd79f09fa/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sXz7nrvkzJQnVMnLNKusvLyiJvvOyC0oHDYM2R264Ec";
+/* ─── Config ─────────────────────────────────────── */
+var FLOW_URL = "https://default783a2c3aadb945ef8d986601d1686f.35.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/69ef74a9b09a4859a90ed5fdd79f09fa/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sXz7nrvkzJQnVMnLNKusvLyiJvvOyC0oHDYM2R264Ec";
 
-/* ─── State ────────────────────────────────────────── */
-let meetingData  = null;
-let isSending    = false;
-let pendingAsync = 0;    // contador de chamadas assíncronas abertas
+/* ─── State ──────────────────────────────────────── */
+var meetingData = null;
+var isSending   = false;
 
-/* ─── Debug log ────────────────────────────────────── */
+/* ─── Helpers ────────────────────────────────────── */
+function safeStr(val) {
+  if (val === null || val === undefined) return "";
+  // Garante que nunca retornamos "[object Object]"
+  if (typeof val === "object") {
+    // Tenta extrair campo comum de texto
+    return val.value || val.displayName || val.emailAddress || val.name || JSON.stringify(val);
+  }
+  return String(val);
+}
+
 function log(msg, type) {
   type = type || "inf";
-  const t   = new Date().toLocaleTimeString("pt-BR");
-  const txt = "[" + t + "] " + msg;
-  console.log(txt);
-
-  const panel = document.getElementById("debugPanel");
-  const div   = document.createElement("div");
+  var t = new Date().toLocaleTimeString("pt-BR");
+  console.log("[" + t + "] " + msg);
+  var panel = document.getElementById("debugPanel");
+  var div = document.createElement("div");
   div.className   = "log-line " + type;
-  div.textContent = txt;
+  div.textContent = "[" + t + "] " + msg;
   panel.appendChild(div);
-  panel.scrollTop  = panel.scrollHeight;
-
-  if (type === "err") {
-    document.getElementById("debugToggle").style.display = "block";
-  }
+  panel.scrollTop = panel.scrollHeight;
+  if (type === "err") document.getElementById("debugToggle").style.display = "block";
 }
 
 function toggleDebug() {
   document.getElementById("debugPanel").classList.toggle("visible");
 }
 
-/* ─── UI helpers ───────────────────────────────────── */
 function setStatus(type, title, detail) {
-  var b = document.getElementById("statusBanner");
-  b.className = "status-banner " + type;
+  document.getElementById("statusBanner").className = "status-banner " + type;
   document.getElementById("statusTitle").textContent  = title;
   document.getElementById("statusDetail").textContent = detail;
-
-  var iconHtml = {
+  var icons = {
     loading: '<div class="spinner sm" style="border-color:rgba(3,105,161,.3);border-top-color:#0369a1;"></div>',
     ready:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0369a1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
     sending: '<div class="spinner sm" style="border-color:rgba(217,119,6,.3);border-top-color:#d97706;"></div>',
     sent:    '<svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
     error:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
   };
-  document.getElementById("statusIcon").innerHTML = iconHtml[type] || iconHtml.ready;
+  document.getElementById("statusIcon").innerHTML = icons[type] || icons.ready;
 }
 
-function setText(id, value, removeDim) {
+function setText(id, val) {
   var el = document.getElementById(id);
   if (!el) return;
-  el.textContent = (value !== null && value !== undefined && value !== "") ? value : "—";
-  if (removeDim !== false) el.classList.remove("dim");
+  var s = safeStr(val);
+  el.textContent = s || "—";
+  el.classList.remove("dim");
 }
 
 function formatDate(dt) {
@@ -305,305 +294,282 @@ function setBtn(state, label, showSpinner) {
   var btn = document.getElementById("btnSend");
   var lbl = document.getElementById("btnLabel");
   var ico = document.getElementById("btnIconSvg");
-
-  btn.className = "btn-send state-" + state;
+  btn.className   = "btn-send state-" + state;
   lbl.textContent = label;
   btn.disabled    = (state === "sending" || state === "sent");
-
-  var existingSp = btn.querySelector(".spinner");
+  var sp = btn.querySelector(".spinner");
   if (showSpinner) {
     ico.style.display = "none";
-    if (!existingSp) {
-      var sp = document.createElement("div");
-      sp.className = "spinner";
-      btn.insertBefore(sp, lbl);
-    }
+    if (!sp) { var s = document.createElement("div"); s.className="spinner"; btn.insertBefore(s, lbl); }
   } else {
     ico.style.display = "";
-    if (existingSp) existingSp.remove();
-
-    var paths = {
-      ready: '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>',
-      sent:  '<polyline points="20 6 9 17 4 12"/>',
-      error: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
-    };
-    ico.innerHTML = paths[state] || paths.ready;
+    if (sp) sp.remove();
+    var p = { ready:'<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>', sent:'<polyline points="20 6 9 17 4 12"/>', error:'<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' };
+    ico.innerHTML = p[state] || p.ready;
   }
 }
 
-/* ─── Carregar dados ───────────────────────────────── */
+/* ─── Carregamento: tudo via getAsync no OWA ─────── */
 function loadMeetingData() {
   log("Iniciando leitura do item…");
   setStatus("loading", "Lendo dados da reunião…", "Acessando o item de calendário.");
 
   var item = Office.context.mailbox.item;
+  if (!item) { log("item é null", "err"); setStatus("error","Item indisponível","Abra este suplemento diretamente em um evento de reunião."); return; }
+  log("itemType: " + item.itemType);
 
-  if (!item) {
-    log("mailbox.item é null/undefined", "err");
-    setStatus("error", "Item indisponível",
-      "Abra este suplemento diretamente em um evento de reunião.");
-    return;
-  }
+  // Acumulador: 7 campos assíncronos
+  var D = { id:"", subject:"", orgName:"", orgEmail:"", start:null, end:null, location:"", attendees:[] };
+  var total    = 7;
+  var resolved = 0;
 
-  log("itemType: " + item.itemType, "inf");
-
-  /* ── Campos síncronos ── */
-  var rawId    = item.itemId || "";
-  var subject  = item.subject  || "";
-  var location = item.location || "";
-
-  log("itemId: "  + (rawId   ? rawId.substring(0,20)+"…" : "(vazio)"),   rawId   ? "ok" : "err");
-  log("subject: " + (subject  || "(vazio)"),  "ok");
-  log("location: "+ (location || "(vazio)"),  "ok");
-
-  // ID
-  var idEl = document.getElementById("fieldId");
-  idEl.textContent = rawId ? rawId.substring(0,32)+"…" : "Não disponível";
-  idEl.classList.remove("dim");
-
-  setText("fieldSubject",  subject  || "Sem assunto");
-  setText("fieldLocation", location || "Não informado");
-
-  // Organizador
-  var orgName  = "—";
-  var orgEmail = "";
-  try {
-    if (item.organizer) {
-      if (typeof item.organizer === "object") {
-        orgName  = item.organizer.displayName  || item.organizer.emailAddress || "—";
-        orgEmail = item.organizer.emailAddress || "";
-      } else {
-        orgName = String(item.organizer);
-      }
-    }
-    log("organizer: " + orgName + " <" + orgEmail + ">", "ok");
-  } catch(e) {
-    log("Erro ao ler organizer: " + e.message, "err");
-  }
-
-  var orgEl = document.getElementById("fieldOrganizer");
-  orgEl.classList.remove("dim");
-  orgEl.innerHTML =
-    '<span class="pill organizer">' + orgName + '</span>' +
-    (orgEmail ? '<br><small style="color:var(--text-3);font-size:11px;">' + orgEmail + '</small>' : "");
-
-  /* ── Campos assíncronos: contador de conclusão ── */
-  var startVal     = null;
-  var endVal       = null;
-  var attendeeList = [];
-  var resolved     = 0;
-  var total        = 3;   // start, end, attendees
-
-  function tryFinalize() {
+  function done(key, val) {
+    D[key] = val;
     resolved++;
-    log("Async concluído: " + resolved + "/" + total, "inf");
-    if (resolved < total) return;
-
-    // Todos resolvidos — monta payload e libera botão
-    meetingData = {
-      id:        rawId,
-      subject:   subject,
-      organizer: { name: orgName, email: orgEmail },
-      start:     startVal ? (startVal instanceof Date ? startVal.toISOString() : String(startVal)) : null,
-      end:       endVal   ? (endVal   instanceof Date ? endVal.toISOString()   : String(endVal))   : null,
-      location:  location,
-      attendees: attendeeList
-    };
-
-    log("Payload pronto: " + JSON.stringify(meetingData).substring(0,80) + "…", "ok");
-    setStatus("ready", "Dados carregados com sucesso",
-      "Clique em 'Enviar para Monitorar' para disparar o fluxo.");
-    setBtn("ready", "Enviar para Monitorar", false);
+    log("done [" + key + "] = " + JSON.stringify(val).substring(0,60) + "  (" + resolved + "/" + total + ")", "ok");
+    if (resolved === total) render(D);
   }
 
-  /* Start */
+  /* 1. Item ID via getItemIdAsync (Mailbox 1.7+) com fallback */
   try {
-    item.start.getAsync(function(res) {
-      if (res.status === Office.AsyncResultStatus.Succeeded) {
-        startVal = res.value;
-        log("start: " + startVal, "ok");
-        setText("fieldStart", formatDate(startVal));
-      } else {
-        log("Falha start.getAsync: " + (res.error && res.error.message), "err");
-        setText("fieldStart", "Não disponível");
-      }
-      tryFinalize();
-    });
-  } catch(e) {
-    log("Exceção start.getAsync: " + e.message, "err");
-    setText("fieldStart", "Erro");
-    tryFinalize();
-  }
+    if (item.getItemIdAsync) {
+      item.getItemIdAsync(function(r) {
+        done("id", (r.status === Office.AsyncResultStatus.Succeeded) ? (r.value || "") : "");
+      });
+    } else {
+      // Fallback: itemId síncrono (Desktop/Mac) ou EWS ID
+      var syncId = item.itemId || "";
+      log("getItemIdAsync não disponível, usando itemId síncrono: " + (syncId ? syncId.substring(0,20)+"…" : "(vazio)"), syncId ? "ok" : "err");
+      done("id", syncId);
+    }
+  } catch(e) { log("Exc id: " + e.message, "err"); done("id", ""); }
 
-  /* End */
+  /* 2. Subject */
   try {
-    item.end.getAsync(function(res) {
-      if (res.status === Office.AsyncResultStatus.Succeeded) {
-        endVal = res.value;
-        log("end: " + endVal, "ok");
-        setText("fieldEnd", formatDate(endVal));
-      } else {
-        log("Falha end.getAsync: " + (res.error && res.error.message), "err");
-        setText("fieldEnd", "Não disponível");
-      }
-      tryFinalize();
-    });
-  } catch(e) {
-    log("Exceção end.getAsync: " + e.message, "err");
-    setText("fieldEnd", "Erro");
-    tryFinalize();
-  }
+    if (item.subject && typeof item.subject.getAsync === "function") {
+      item.subject.getAsync(function(r) {
+        done("subject", (r.status === Office.AsyncResultStatus.Succeeded) ? (r.value || "") : "");
+      });
+    } else {
+      // Já é string
+      done("subject", safeStr(item.subject));
+    }
+  } catch(e) { log("Exc subject: " + e.message, "err"); done("subject", ""); }
 
-  /* Participantes */
+  /* 3. Organizer */
+  try {
+    if (item.organizer && typeof item.organizer.getAsync === "function") {
+      item.organizer.getAsync(function(r) {
+        if (r.status === Office.AsyncResultStatus.Succeeded && r.value) {
+          done("orgName",  r.value.displayName  || r.value.emailAddress || "—");
+          done("orgEmail", r.value.emailAddress || "");
+        } else {
+          done("orgName",  "—");
+          done("orgEmail", "");
+        }
+      });
+      // organizer.getAsync resolve DOIS campos, mas conta como 2 no total (orgName + orgEmail)
+    } else if (item.organizer) {
+      // Objeto direto (Desktop)
+      var org = item.organizer;
+      done("orgName",  org.displayName  || org.emailAddress || safeStr(org));
+      done("orgEmail", org.emailAddress || "");
+    } else {
+      done("orgName",  "—");
+      done("orgEmail", "");
+    }
+  } catch(e) { log("Exc organizer: " + e.message, "err"); done("orgName","—"); done("orgEmail",""); }
+
+  /* 4. Start */
+  try {
+    item.start.getAsync(function(r) {
+      done("start", (r.status === Office.AsyncResultStatus.Succeeded) ? r.value : null);
+    });
+  } catch(e) { log("Exc start: " + e.message, "err"); done("start", null); }
+
+  /* 5. End */
+  try {
+    item.end.getAsync(function(r) {
+      done("end", (r.status === Office.AsyncResultStatus.Succeeded) ? r.value : null);
+    });
+  } catch(e) { log("Exc end: " + e.message, "err"); done("end", null); }
+
+  /* 6. Location */
+  try {
+    if (item.location && typeof item.location.getAsync === "function") {
+      item.location.getAsync(function(r) {
+        done("location", (r.status === Office.AsyncResultStatus.Succeeded) ? (r.value || "") : "");
+      });
+    } else {
+      done("location", safeStr(item.location));
+    }
+  } catch(e) { log("Exc location: " + e.message, "err"); done("location", ""); }
+
+  /* 7. Attendees */
   try {
     var reqProp = item.requiredAttendees;
     var optProp = item.optionalAttendees;
 
-    // OWA pode expor como array direto (sem getAsync)
     if (Array.isArray(reqProp)) {
-      log("Participantes síncronos (OWA direto)", "ok");
+      // OWA: arrays síncronos
+      log("Attendees síncronos (OWA array)", "ok");
       var optArr = Array.isArray(optProp) ? optProp : [];
-      attendeeList = buildAttendeeList(reqProp, optArr);
-      renderAttendees(attendeeList);
-      tryFinalize();
+      done("attendees", buildAttendees(reqProp, optArr));
     } else if (reqProp && typeof reqProp.getAsync === "function") {
-      reqProp.getAsync(function(reqRes) {
-        var required = (reqRes.status === Office.AsyncResultStatus.Succeeded) ? (reqRes.value || []) : [];
-        if (reqRes.status !== Office.AsyncResultStatus.Succeeded) {
-          log("Falha requiredAttendees: " + (reqRes.error && reqRes.error.message), "err");
-        }
-
-        function resolveOpt(optional) {
-          attendeeList = buildAttendeeList(required, optional);
-          renderAttendees(attendeeList);
-          tryFinalize();
-        }
-
+      reqProp.getAsync(function(rr) {
+        var req = (rr.status === Office.AsyncResultStatus.Succeeded) ? (rr.value || []) : [];
+        function finishAtt(opt) { done("attendees", buildAttendees(req, opt)); }
         if (optProp && typeof optProp.getAsync === "function") {
-          optProp.getAsync(function(optRes) {
-            var optional = (optRes.status === Office.AsyncResultStatus.Succeeded) ? (optRes.value || []) : [];
-            resolveOpt(optional);
+          optProp.getAsync(function(or) {
+            finishAtt((or.status === Office.AsyncResultStatus.Succeeded) ? (or.value || []) : []);
           });
         } else {
-          resolveOpt([]);
+          finishAtt([]);
         }
       });
     } else {
-      log("requiredAttendees não acessível — provavelmente permissão insuficiente", "err");
-      document.getElementById("fieldAttendees").textContent = "Não disponível";
-      tryFinalize();
+      log("Attendees não acessíveis", "err");
+      done("attendees", []);
     }
-  } catch(e) {
-    log("Exceção ao ler participantes: " + e.message, "err");
-    document.getElementById("fieldAttendees").textContent = "Erro ao carregar";
-    tryFinalize();
-  }
+  } catch(e) { log("Exc attendees: " + e.message, "err"); done("attendees", []); }
 }
 
-function buildAttendeeList(required, optional) {
-  var reqEmails = {};
-  required.forEach(function(a) { reqEmails[(a.emailAddress || "").toLowerCase()] = true; });
-
+function buildAttendees(req, opt) {
+  var seen = {};
   var list = [];
-  required.forEach(function(a) {
+  req.forEach(function(a) {
+    var email = (a.emailAddress || "").toLowerCase();
+    seen[email] = true;
     list.push({ name: a.displayName || a.emailAddress || "—", email: a.emailAddress || "", type: "required" });
   });
-  optional.forEach(function(a) {
-    if (!reqEmails[(a.emailAddress || "").toLowerCase()]) {
-      list.push({ name: a.displayName || a.emailAddress || "—", email: a.emailAddress || "", type: "optional" });
-    }
+  opt.forEach(function(a) {
+    var email = (a.emailAddress || "").toLowerCase();
+    if (!seen[email]) list.push({ name: a.displayName || a.emailAddress || "—", email: a.emailAddress || "", type: "optional" });
   });
-
-  log("Participantes: " + list.length + " (" + required.length + " obrigatórios, " + optional.length + " opcionais)", "ok");
+  log("Attendees: " + list.length, "ok");
   return list;
 }
 
-function renderAttendees(list) {
-  var el = document.getElementById("fieldAttendees");
-  el.classList.remove("dim");
-  document.getElementById("totalAttendeeBadge").textContent =
-    list.length + " participante" + (list.length !== 1 ? "s" : "");
+/* ─── Render: atualiza UI com todos os dados ─────── */
+function render(D) {
+  log("Renderizando painel…", "ok");
 
-  if (list.length === 0) {
-    el.innerHTML = '<span style="color:var(--text-3);font-style:italic;font-size:12px;">Nenhum participante encontrado</span>';
-    return;
+  // ID
+  var idEl = document.getElementById("fieldId");
+  idEl.classList.remove("dim");
+  if (D.id) {
+    idEl.textContent = D.id.substring(0, 36) + "…";
+  } else {
+    idEl.textContent = "Não disponível";
+    idEl.classList.add("dim");
   }
-  el.className = "attendees-wrap";
-  el.innerHTML = list.map(function(a) {
-    return '<span class="pill" title="' + a.email + ' · ' + (a.type === "required" ? "Obrigatório" : "Opcional") + '">' + a.name + '</span>';
-  }).join("");
+
+  // Assunto
+  setText("fieldSubject",  D.subject  || "Sem assunto");
+
+  // Local
+  setText("fieldLocation", D.location || "Não informado");
+
+  // Datas
+  setText("fieldStart", formatDate(D.start));
+  setText("fieldEnd",   formatDate(D.end));
+
+  // Organizador
+  var orgEl = document.getElementById("fieldOrganizer");
+  orgEl.classList.remove("dim");
+  if (D.orgName && D.orgName !== "—") {
+    orgEl.innerHTML =
+      '<span class="pill organizer">' + D.orgName + '</span>' +
+      (D.orgEmail ? '<br><small style="color:var(--text-3);font-size:11px;margin-top:2px;display:inline-block;">' + D.orgEmail + '</small>' : "");
+  } else {
+    orgEl.textContent = "Não disponível";
+    orgEl.classList.add("dim");
+  }
+
+  // Participantes
+  var attEl = document.getElementById("fieldAttendees");
+  attEl.classList.remove("dim");
+  document.getElementById("totalAttendeeBadge").textContent =
+    D.attendees.length + " participante" + (D.attendees.length !== 1 ? "s" : "");
+
+  if (D.attendees.length === 0) {
+    attEl.innerHTML = '<span style="color:var(--text-3);font-style:italic;font-size:12px;">Nenhum participante encontrado</span>';
+  } else {
+    attEl.className = "attendees-wrap";
+    attEl.innerHTML = D.attendees.map(function(a) {
+      return '<span class="pill" title="' + a.email + ' · ' + (a.type === "required" ? "Obrigatório" : "Opcional") + '">' + a.name + '</span>';
+    }).join("");
+  }
+
+  // Monta payload para o Power Automate
+  meetingData = {
+    id:        D.id,
+    subject:   D.subject,
+    organizer: { name: D.orgName, email: D.orgEmail },
+    start:     D.start  ? (D.start  instanceof Date ? D.start.toISOString()  : String(D.start))  : null,
+    end:       D.end    ? (D.end    instanceof Date ? D.end.toISOString()    : String(D.end))    : null,
+    location:  D.location,
+    attendees: D.attendees
+  };
+
+  log("Payload: " + JSON.stringify(meetingData).substring(0,120) + "…", "ok");
+  setStatus("ready", "Dados carregados com sucesso",
+    "Clique em 'Enviar para Monitorar' para disparar o fluxo.");
+  setBtn("ready", "Enviar para Monitorar", false);
 }
 
-/* ─── Envio ao Power Automate ──────────────────────── */
+/* ─── Envio ao Power Automate ────────────────────── */
 function sendToFlow() {
   if (isSending) return;
   if (!meetingData) {
-    setStatus("error", "Dados ainda não carregados",
-      "Aguarde o carregamento completo antes de enviar.");
+    setStatus("error", "Dados ainda não carregados", "Aguarde o carregamento completar.");
     return;
   }
-
   isSending = true;
-  log("Disparando fluxo Power Automate…", "inf");
-  setStatus("sending", "Enviando ao Power Automate…",
-    "Aguarde. O fluxo está sendo acionado.");
+  setStatus("sending", "Enviando ao Power Automate…", "Aguarde. O fluxo está sendo acionado.");
   setBtn("sending", "Enviando…", true);
 
   var body = JSON.stringify(meetingData);
-  log("Payload: " + body.substring(0, 80) + "…", "inf");
+  log("POST → " + FLOW_URL.substring(0, 60) + "…", "inf");
 
-  fetch(FLOW_URL, {
-    method:  "POST",
-    headers: { "Content-Type": "application/json" },
-    body:    body
-  })
-  .then(function(res) {
-    log("HTTP: " + res.status + " " + res.statusText, (res.ok || res.status === 202) ? "ok" : "err");
-    if (res.ok || res.status === 202) {
-      setStatus("sent", "Enviado com sucesso! ✓",
-        "Fluxo acionado às " + new Date().toLocaleTimeString("pt-BR") + ".");
-      setBtn("sent", "Enviado com sucesso ✓", false);
-
-      var ts = document.getElementById("sendTimestamp");
-      ts.textContent = "Último envio: " + new Date().toLocaleString("pt-BR");
-      ts.classList.add("visible");
-    } else {
-      return res.text().then(function(txt) {
-        throw new Error("HTTP " + res.status + ": " + txt.substring(0,120));
-      });
-    }
-  })
-  .catch(function(e) {
-    log("Erro no fetch: " + e.message, "err");
-    document.getElementById("debugToggle").style.display = "block";
-    setStatus("error", "Falha ao enviar",
-      e.message + ". Verifique o log e tente novamente.");
-    setBtn("error", "Tentar novamente", false);
-    isSending = false;
-  });
+  fetch(FLOW_URL, { method:"POST", headers:{"Content-Type":"application/json"}, body:body })
+    .then(function(r) {
+      log("HTTP " + r.status + " " + r.statusText, (r.ok || r.status===202) ? "ok" : "err");
+      if (r.ok || r.status === 202) {
+        setStatus("sent", "Enviado com sucesso! ✓",
+          "Fluxo acionado às " + new Date().toLocaleTimeString("pt-BR") + ".");
+        setBtn("sent", "Enviado com sucesso ✓", false);
+        var ts = document.getElementById("sendTimestamp");
+        ts.textContent = "Último envio: " + new Date().toLocaleString("pt-BR");
+        ts.classList.add("visible");
+      } else {
+        return r.text().then(function(t) { throw new Error("HTTP " + r.status + ": " + t.substring(0,120)); });
+      }
+    })
+    .catch(function(e) {
+      log("Erro fetch: " + e.message, "err");
+      document.getElementById("debugToggle").style.display = "block";
+      setStatus("error", "Falha ao enviar", e.message + ". Verifique o log e tente novamente.");
+      setBtn("error", "Tentar novamente", false);
+      isSending = false;
+    });
 }
 
-/* ─── Office.onReady ───────────────────────────────── */
+/* ─── Office.onReady ─────────────────────────────── */
 Office.onReady(function(info) {
-  log("Office.onReady — host: " + info.host + ", platform: " + info.platform, "ok");
-
+  log("onReady host=" + info.host + " platform=" + info.platform, "ok");
   if (info.host === Office.HostType.Outlook) {
-    log("Host Outlook confirmado. Aguardando item…", "ok");
-    // Delay de 400ms garante que o item esteja acessível no OWA antes de ler
     setTimeout(function() {
-      try {
-        loadMeetingData();
-      } catch(e) {
+      try { loadMeetingData(); }
+      catch(e) {
         log("Erro crítico: " + e.message, "err");
         setStatus("error", "Erro ao carregar dados", e.message);
         document.getElementById("debugToggle").style.display = "block";
       }
     }, 400);
   } else {
-    log("Host não suportado: " + info.host, "err");
-    setStatus("error", "Host não suportado",
-      "Este suplemento funciona apenas no Outlook. Abra-o em um evento de reunião.");
-    setBtn("error", "Indisponível", false);
+    setStatus("error","Host não suportado","Abra este suplemento em um evento de reunião no Outlook.");
+    setBtn("error","Indisponível",false);
   }
 });
 </script>
