@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <!-- Fundo -->
+  <rect width="192" height="192" fill="#0f4c81" rx="30"/>
+  
+  <!-- Ícone de reunião (pessoas + círculo) -->
+  <g fill="white">
+    <!-- Círculo superior (primeira pessoa) -->
+    <circle cx="96" cy="48" r="18"/>
+    
+    <!-- Corpo primeira pessoa -->
+    <path d="M 75 72 Q 75 62 96 62 Q 117 62 117 72 L 117 88 Q 117 98 96 98 Q 75 98 75 88 Z"/>
+    
+    <!-- Círculo esquerdo (segunda pessoa) -->
+    <circle cx="54" cy="108" r="15"/>
+    
+    <!-- Corpo segunda pessoa -->
+    <path d="M 39 126 Q 39 118 54 118 Q 69 118 69 126 L 69 138 Q 69 146 54 146 Q 39 146 39 138 Z"/>
+    
+    <!-- Círculo direito (terceira pessoa) -->
+    <circle cx="138" cy="108" r="15"/>
+    
+    <!-- Corpo terceira pessoa -->
+    <path d="M 123 126 Q 123 118 138 118 Q 153 118 153 126 L 153 138 Q 153 146 138 146 Q 123 146 123 138 Z"/>
+    
+    <!-- Linha horizontal para conectar -->
+    <rect x="39" y="154" width="114" height="3" rx="1.5"/>
+    
+    <!-- Símbolo de transmissão (ondas) -->
+    <path d="M 96 164 Q 96 168 100 168 Q 104 168 104 164" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 88 158 Q 88 166 92 170 Q 100 178 108 170 Q 112 166 112 158" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>
