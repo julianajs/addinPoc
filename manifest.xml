@@ -3,35 +3,35 @@
   xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
   xsi:type="MailApp">
 
-  <!-- Identificação básica -->
-  <Id>a1b2c3d4-e5f6-7890-abcd-ef1234567890</Id>
+  <Id>9f4f8c7d-63d8-4a41-93e4-2f814d5108f7</Id>
   <Version>1.0.1.0</Version>
-  <ProviderName>Monitorar Reunião Pública</ProviderName>
+  <ProviderName>Juliana Office</ProviderName>
   <DefaultLocale>pt-BR</DefaultLocale>
   <DisplayName DefaultValue="Monitorar Reunião Pública"/>
-  <Description DefaultValue="Envia informações da reunião ao fluxo do Power Automate para monitoramento."/>
+  <Description DefaultValue="Captura os dados da reunião do Outlook, incluindo o ID numérico do Microsoft Teams, e envia ao Power Automate."/>
 
-  <!-- Ícones usando imagem PNG (URL segura) -->
-  <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
-  <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
-
+  <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
   <SupportUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net"/>
 
-  <!-- Suporte de hosts: Outlook -->
+  <AppDomains>
+    <AppDomain>https://kind-dune-04677490f.7.azurestaticapps.net</AppDomain>
+    <AppDomain>https://default783a2c3aadb945ef8d986601d1686f.35.environment.api.powerplatform.com</AppDomain>
+  </AppDomains>
+
   <Hosts>
     <Host Name="Mailbox"/>
   </Hosts>
 
-  <!-- Requisitos mínimos da API -->
   <Requirements>
-    <Sets>
+    <Sets DefaultMinVersion="1.5">
       <Set Name="Mailbox" MinVersion="1.5"/>
     </Sets>
   </Requirements>
 
-  <!-- Formulário de leitura padrão (fallback) -->
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
@@ -41,17 +41,15 @@
     </Form>
   </FormSettings>
 
-  <!-- Permissões -->
   <Permissions>ReadWriteItem</Permissions>
 
-  <!-- Regra de ativação: apenas em eventos de calendário -->
   <Rule xsi:type="RuleCollection" Mode="Or">
     <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Read"/>
-    <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Edit"/>
   </Rule>
 
-  <!-- Versões avançadas - botão na faixa de opções -->
-  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="VersionOverridesV1_0">
     <Requirements>
       <bt:Sets DefaultMinVersion="1.5">
         <bt:Set Name="Mailbox"/>
@@ -60,17 +58,14 @@
 
     <Hosts>
       <Host xsi:type="MailHost">
-
-        <!-- Modo de leitura de compromissos -->
         <DesktopFormFactor>
           <FunctionFile resid="Commands.Url"/>
 
           <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
             <OfficeTab id="TabDefault">
-              <Group id="msgReadGroup">
+              <Group id="MonitorarReuniaoGroupOrganizer">
                 <Label resid="GroupLabel"/>
-                <!-- Botão direto na faixa de opções -->
-                <Control xsi:type="Button" id="MonitorarReuniaoBtn">
+                <Control xsi:type="Button" id="MonitorarReuniaoOrganizerButton">
                   <Label resid="BtnLabel"/>
                   <Supertip>
                     <Title resid="BtnLabel"/>
@@ -89,12 +84,11 @@
             </OfficeTab>
           </ExtensionPoint>
 
-          <!-- Modo de leitura de compromissos (participante) -->
           <ExtensionPoint xsi:type="AppointmentAttendeeCommandSurface">
             <OfficeTab id="TabDefault">
-              <Group id="msgReadGroupAttendee">
+              <Group id="MonitorarReuniaoGroupAttendee">
                 <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="MonitorarReuniaoAttendeeBtn">
+                <Control xsi:type="Button" id="MonitorarReuniaoAttendeeButton">
                   <Label resid="BtnLabel"/>
                   <Supertip>
                     <Title resid="BtnLabel"/>
@@ -112,17 +106,15 @@
               </Group>
             </OfficeTab>
           </ExtensionPoint>
-
         </DesktopFormFactor>
       </Host>
     </Hosts>
 
-    <!-- Recursos centralizados -->
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
-        <bt:Image id="Icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
-        <bt:Image id="Icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
+        <bt:Image id="Icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-16.png"/>
+        <bt:Image id="Icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-32.png"/>
+        <bt:Image id="Icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Commands.Url" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/commands.html"/>
@@ -130,12 +122,11 @@
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Monitoramento"/>
-        <bt:String id="BtnLabel" DefaultValue="Monitorar Reunião Pública"/>
+        <bt:String id="BtnLabel" DefaultValue="Monitorar Reunião"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="BtnDesc" DefaultValue="Abre o painel para enviar os dados desta reunião ao fluxo de monitoramento no Power Automate."/>
+        <bt:String id="BtnDesc" DefaultValue="Abre o painel para capturar o ID numérico do Teams e enviar os dados da reunião ao Power Automate."/>
       </bt:LongStrings>
     </Resources>
-
   </VersionOverrides>
 </OfficeApp>
