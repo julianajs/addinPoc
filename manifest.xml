@@ -14,8 +14,8 @@
   <Description DefaultValue="Envia informações da reunião ao fluxo do Power Automate para monitoramento."/>
 
   <!-- Ícones usando imagem PNG (URL segura) -->
-  <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
-  <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
+  <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
+  <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
 
   <SupportUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net"/>
 
@@ -120,9 +120,9 @@
     <!-- Recursos centralizados -->
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-16.png"/>
-        <bt:Image id="Icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-32.png"/>
-        <bt:Image id="Icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
+        <bt:Image id="Icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
+        <bt:Image id="Icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
+        <bt:Image id="Icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Commands.Url" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/commands.html"/>
