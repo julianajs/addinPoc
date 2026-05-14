@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<OfficeApp
-  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
-  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
-  xsi:type="MailApp">
-
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
+           xsi:type="MailApp">
   <Id>9f4f8c7d-63d8-4a41-93e4-2f814d5108f7</Id>
-  <Version>1.0.1.0</Version>
+  <Version>1.0.2.0</Version>
   <ProviderName>Juliana Office</ProviderName>
   <DefaultLocale>pt-BR</DefaultLocale>
-  <DisplayName DefaultValue="Monitorar Reunião Pública"/>
-  <Description DefaultValue="Captura os dados da reunião do Outlook, incluindo o ID numérico do Microsoft Teams, e envia ao Power Automate."/>
-
-  <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
+  <DisplayName DefaultValue="Capturar Reunião Teams"/>
+  <Description DefaultValue="Captura o ID numérico da reunião do Microsoft Teams e envia ao Power Automate."/>
+  <IconUrl DefaultValue="https://raw.githubusercontent.com/OfficeDev/Office-Add-in-Commands-Samples/master/Word/Button32x32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://raw.githubusercontent.com/OfficeDev/Office-Add-in-Commands-Samples/master/Word/Button80x80.png"/>
   <SupportUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net"/>
 
   <AppDomains>
@@ -27,8 +24,8 @@
   </Hosts>
 
   <Requirements>
-    <Sets DefaultMinVersion="1.5">
-      <Set Name="Mailbox" MinVersion="1.5"/>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.8"/>
     </Sets>
   </Requirements>
 
@@ -42,16 +39,16 @@
   </FormSettings>
 
   <Permissions>ReadWriteItem</Permissions>
-
   <Rule xsi:type="RuleCollection" Mode="Or">
     <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Read"/>
+    <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Edit"/>
   </Rule>
-
   <DisableEntityHighlighting>false</DisableEntityHighlighting>
 
-  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="VersionOverridesV1_0">
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
+                    xsi:type="VersionOverridesV1_1">
     <Requirements>
-      <bt:Sets DefaultMinVersion="1.5">
+      <bt:Sets DefaultMinVersion="1.8">
         <bt:Set Name="Mailbox"/>
       </bt:Sets>
     </Requirements>
@@ -63,21 +60,22 @@
 
           <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
             <OfficeTab id="TabDefault">
-              <Group id="MonitorarReuniaoGroupOrganizer">
-                <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="MonitorarReuniaoOrganizerButton">
-                  <Label resid="BtnLabel"/>
+              <Group id="MeetingCapture.Group">
+                <Label resid="Group.Label"/>
+                <Control xsi:type="Button" id="MeetingCapture.Button">
+                  <Label resid="Button.Label"/>
                   <Supertip>
-                    <Title resid="BtnLabel"/>
-                    <Description resid="BtnDesc"/>
+                    <Title resid="Button.Label"/>
+                    <Description resid="Button.Description"/>
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon16"/>
-                    <bt:Image size="32" resid="Icon32"/>
-                    <bt:Image size="80" resid="Icon80"/>
+                    <bt:Image size="16" resid="Icon.16"/>
+                    <bt:Image size="32" resid="Icon.32"/>
+                    <bt:Image size="80" resid="Icon.80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
                     <SourceLocation resid="Taskpane.Url"/>
+                    <SupportsPinning>true</SupportsPinning>
                   </Action>
                 </Control>
               </Group>
@@ -86,21 +84,22 @@
 
           <ExtensionPoint xsi:type="AppointmentAttendeeCommandSurface">
             <OfficeTab id="TabDefault">
-              <Group id="MonitorarReuniaoGroupAttendee">
-                <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="MonitorarReuniaoAttendeeButton">
-                  <Label resid="BtnLabel"/>
+              <Group id="MeetingCapture.AttendeeGroup">
+                <Label resid="Group.Label"/>
+                <Control xsi:type="Button" id="MeetingCapture.AttendeeButton">
+                  <Label resid="Button.Label"/>
                   <Supertip>
-                    <Title resid="BtnLabel"/>
-                    <Description resid="BtnDesc"/>
+                    <Title resid="Button.Label"/>
+                    <Description resid="Button.Description"/>
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon16"/>
-                    <bt:Image size="32" resid="Icon32"/>
-                    <bt:Image size="80" resid="Icon80"/>
+                    <bt:Image size="16" resid="Icon.16"/>
+                    <bt:Image size="32" resid="Icon.32"/>
+                    <bt:Image size="80" resid="Icon.80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
                     <SourceLocation resid="Taskpane.Url"/>
+                    <SupportsPinning>true</SupportsPinning>
                   </Action>
                 </Control>
               </Group>
@@ -112,20 +111,20 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-16.png"/>
-        <bt:Image id="Icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-32.png"/>
-        <bt:Image id="Icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
+        <bt:Image id="Icon.16" DefaultValue="https://raw.githubusercontent.com/OfficeDev/Office-Add-in-Commands-Samples/master/Word/Button16x16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://raw.githubusercontent.com/OfficeDev/Office-Add-in-Commands-Samples/master/Word/Button32x32.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://raw.githubusercontent.com/OfficeDev/Office-Add-in-Commands-Samples/master/Word/Button80x80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Commands.Url" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/commands.html"/>
         <bt:Url id="Taskpane.Url" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GroupLabel" DefaultValue="Monitoramento"/>
-        <bt:String id="BtnLabel" DefaultValue="Monitorar Reunião"/>
+        <bt:String id="Group.Label" DefaultValue="Automação"/>
+        <bt:String id="Button.Label" DefaultValue="Capturar Reunião"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="BtnDesc" DefaultValue="Abre o painel para capturar o ID numérico do Teams e enviar os dados da reunião ao Power Automate."/>
+        <bt:String id="Button.Description" DefaultValue="Captura o ID da reunião do Teams e envia para o Power Automate."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
