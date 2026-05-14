@@ -309,179 +309,147 @@ function setBtn(state, label, showSpinner) {
   }
 }
 
-/* ─── Carregamento: tudo via getAsync no OWA ─────── */
+
+/* ─── Extração do ID numérico do Teams ───────────── */
+function stripHtml(html) {
+  var div = document.createElement("div");
+  div.innerHTML = html || "";
+  return (div.textContent || div.innerText || "").replace(/\u00a0/g, " ");
+}
+
+function normalizeMeetingId(raw) {
+  var digits = String(raw || "").replace(/\D/g, "");
+  if (digits.length < 9 || digits.length > 30) return "";
+  return digits.replace(/(\d{3})(?=\d)/g, "$1 ").trim();
+}
+
+function extractTeamsMeetingId(bodyText) {
+  var text = (bodyText || "").replace(/\s+/g, " ").trim();
+  var patterns = [
+    /(?:ID\s+da\s+reuni[aã]o|ID\s+de\s+reuni[aã]o|Meeting\s+ID)\s*[:：#-]?\s*((?:\d[\s-]*){9,30})/i,
+    /(?:identifica(?:dor)?\s+da\s+reuni[aã]o)\s*[:：#-]?\s*((?:\d[\s-]*){9,30})/i
+  ];
+  for (var i = 0; i < patterns.length; i++) {
+    var m = text.match(patterns[i]);
+    if (m && m[1]) {
+      var id = normalizeMeetingId(m[1]);
+      if (id) return id;
+    }
+  }
+  return "";
+}
+
+function readBody(callback) {
+  var item = Office.context.mailbox.item;
+  if (!item || !item.body || typeof item.body.getAsync !== "function") {
+    callback("");
+    return;
+  }
+  item.body.getAsync(Office.CoercionType.Html, function(r) {
+    if (r.status === Office.AsyncResultStatus.Succeeded) {
+      callback(stripHtml(r.value || ""));
+    } else {
+      log("body.getAsync falhou: " + (r.error ? r.error.message : "erro desconhecido"), "err");
+      callback("");
+    }
+  });
+}
+
+/* ─── Carregamento dos dados da reunião ──────────── */
 function loadMeetingData() {
   log("Iniciando leitura do item…");
-  setStatus("loading", "Lendo dados da reunião…", "Acessando o item de calendário.");
+  setStatus("loading", "Lendo dados da reunião…", "Acessando o item de calendário e o corpo do convite.");
 
   var item = Office.context.mailbox.item;
-  if (!item) { log("item é null", "err"); setStatus("error","Item indisponível","Abra este suplemento diretamente em um evento de reunião."); return; }
+  if (!item) { log("item é null", "err"); setStatus("error","Item indisponível","Abra este suplemento diretamente em uma reunião já criada no calendário."); return; }
   log("itemType: " + item.itemType);
 
-  // Acumulador: 7 campos assíncronos
-  var D = { id:"", subject:"", orgName:"", orgEmail:"", start:null, end:null, location:"", attendees:[] };
-  var total    = 7;
+  var D = { outlookItemId:"", teamsMeetingId:"", subject:"", orgName:"", orgEmail:"", start:null, end:null, location:"", attendees:[], bodyText:"" };
+  var total = 9;
   var resolved = 0;
 
   function done(key, val) {
     D[key] = val;
     resolved++;
-    log("done [" + key + "] = " + JSON.stringify(val).substring(0,60) + "  (" + resolved + "/" + total + ")", "ok");
+    try { log("done [" + key + "] = " + JSON.stringify(val).substring(0,80) + " (" + resolved + "/" + total + ")", "ok"); } catch(e) {}
     if (resolved === total) render(D);
   }
 
-  /* 1. Item ID com múltiplas estratégias */
   try {
-    var idResolvedCount = 0;
-    var resolvedId = "";
-
-    // Estratégia 1: getItemIdAsync (Mailbox 1.7+)
-    if (item.getItemIdAsync && typeof item.getItemIdAsync === "function") {
-      item.getItemIdAsync(function(r) {
-        if (r.status === Office.AsyncResultStatus.Succeeded && r.value) {
-          resolvedId = r.value;
-          idResolvedCount++;
-          log("Estratégia 1 - getItemIdAsync: " + (resolvedId.substring(0, 20) + "…"), "ok");
-          done("id", resolvedId);
-        } else if (++idResolvedCount === 1) {
-          // Se falhar, tenta estratégia 2
-          tryStrategy2();
-        }
-      });
+    if (item.getItemIdAsync) {
+      item.getItemIdAsync(function(r) { done("outlookItemId", (r.status === Office.AsyncResultStatus.Succeeded) ? (r.value || "") : ""); });
     } else {
-      tryStrategy2();
+      done("outlookItemId", item.itemId || "");
     }
+  } catch(e) { log("Exc outlookItemId: " + e.message, "err"); done("outlookItemId", ""); }
 
-    function tryStrategy2() {
-      // Estratégia 2: itemId síncrono (Desktop/Mac)
-      var syncId = item.itemId || "";
-      if (syncId) {
-        resolvedId = syncId;
-        log("Estratégia 2 - item.itemId síncrono: " + (syncId.substring(0, 20) + "…"), "ok");
-        done("id", resolvedId);
-      } else {
-        tryStrategy3();
-      }
-    }
-
-    function tryStrategy3() {
-      // Estratégia 3: Combinar subject + start + organizer para criar ID único
-      var subject = safeStr(item.subject);
-      var start = (item.start && item.start.toString) ? item.start.toString() : "";
-      var fallbackId = subject && start ? (subject.substring(0, 10) + "_" + new Date(start).getTime()) : "";
-      
-      if (fallbackId) {
-        resolvedId = fallbackId;
-        log("Estratégia 3 - ID composto (subject+timestamp): " + fallbackId.substring(0, 30) + "…", "ok");
-        done("id", resolvedId);
-      } else {
-        log("Nenhuma estratégia de ID funcionou", "err");
-        done("id", "");
-      }
-    }
-  } catch(e) { log("Exc id: " + e.message, "err"); done("id", ""); }
-
-  /* 2. Subject */
   try {
     if (item.subject && typeof item.subject.getAsync === "function") {
-      item.subject.getAsync(function(r) {
-        done("subject", (r.status === Office.AsyncResultStatus.Succeeded) ? (r.value || "") : "");
-      });
-    } else {
-      // Já é string
-      done("subject", safeStr(item.subject));
-    }
+      item.subject.getAsync(function(r) { done("subject", (r.status === Office.AsyncResultStatus.Succeeded) ? (r.value || "") : ""); });
+    } else { done("subject", safeStr(item.subject)); }
   } catch(e) { log("Exc subject: " + e.message, "err"); done("subject", ""); }
 
-  /* 3. Organizer */
   try {
     if (item.organizer && typeof item.organizer.getAsync === "function") {
       item.organizer.getAsync(function(r) {
         if (r.status === Office.AsyncResultStatus.Succeeded && r.value) {
-          done("orgName",  r.value.displayName  || r.value.emailAddress || "—");
+          done("orgName", r.value.displayName || r.value.emailAddress || "—");
           done("orgEmail", r.value.emailAddress || "");
-        } else {
-          done("orgName",  "—");
-          done("orgEmail", "");
-        }
+        } else { done("orgName", "—"); done("orgEmail", ""); }
       });
-      // organizer.getAsync resolve DOIS campos, mas conta como 2 no total (orgName + orgEmail)
     } else if (item.organizer) {
-      // Objeto direto (Desktop)
       var org = item.organizer;
-      done("orgName",  org.displayName  || org.emailAddress || safeStr(org));
+      done("orgName", org.displayName || org.emailAddress || safeStr(org));
       done("orgEmail", org.emailAddress || "");
-    } else {
-      done("orgName",  "—");
-      done("orgEmail", "");
-    }
+    } else { done("orgName", "—"); done("orgEmail", ""); }
   } catch(e) { log("Exc organizer: " + e.message, "err"); done("orgName","—"); done("orgEmail",""); }
 
-  /* 4. Start */
-  try {
-    item.start.getAsync(function(r) {
-      done("start", (r.status === Office.AsyncResultStatus.Succeeded) ? r.value : null);
-    });
-  } catch(e) { log("Exc start: " + e.message, "err"); done("start", null); }
+  try { item.start.getAsync(function(r) { done("start", (r.status === Office.AsyncResultStatus.Succeeded) ? r.value : null); }); }
+  catch(e) { log("Exc start: " + e.message, "err"); done("start", null); }
 
-  /* 5. End */
-  try {
-    item.end.getAsync(function(r) {
-      done("end", (r.status === Office.AsyncResultStatus.Succeeded) ? r.value : null);
-    });
-  } catch(e) { log("Exc end: " + e.message, "err"); done("end", null); }
+  try { item.end.getAsync(function(r) { done("end", (r.status === Office.AsyncResultStatus.Succeeded) ? r.value : null); }); }
+  catch(e) { log("Exc end: " + e.message, "err"); done("end", null); }
 
-  /* 6. Location */
   try {
     if (item.location && typeof item.location.getAsync === "function") {
-      item.location.getAsync(function(r) {
-        done("location", (r.status === Office.AsyncResultStatus.Succeeded) ? (r.value || "") : "");
-      });
-    } else {
-      done("location", safeStr(item.location));
-    }
+      item.location.getAsync(function(r) { done("location", (r.status === Office.AsyncResultStatus.Succeeded) ? (r.value || "") : ""); });
+    } else { done("location", safeStr(item.location)); }
   } catch(e) { log("Exc location: " + e.message, "err"); done("location", ""); }
 
-  /* 7. Attendees */
   try {
     var reqProp = item.requiredAttendees;
     var optProp = item.optionalAttendees;
-
     if (Array.isArray(reqProp)) {
-      // OWA: arrays síncronos
-      log("Attendees síncronos (OWA array)", "ok");
-      var optArr = Array.isArray(optProp) ? optProp : [];
-      done("attendees", buildAttendees(reqProp, optArr));
+      done("attendees", buildAttendees(reqProp, Array.isArray(optProp) ? optProp : []));
     } else if (reqProp && typeof reqProp.getAsync === "function") {
       reqProp.getAsync(function(rr) {
         var req = (rr.status === Office.AsyncResultStatus.Succeeded) ? (rr.value || []) : [];
-        function finishAtt(opt) { done("attendees", buildAttendees(req, opt)); }
         if (optProp && typeof optProp.getAsync === "function") {
-          optProp.getAsync(function(or) {
-            finishAtt((or.status === Office.AsyncResultStatus.Succeeded) ? (or.value || []) : []);
-          });
-        } else {
-          finishAtt([]);
-        }
+          optProp.getAsync(function(or) { done("attendees", buildAttendees(req, (or.status === Office.AsyncResultStatus.Succeeded) ? (or.value || []) : [])); });
+        } else { done("attendees", buildAttendees(req, [])); }
       });
-    } else {
-      log("Attendees não acessíveis", "err");
-      done("attendees", []);
-    }
+    } else { log("Attendees não acessíveis", "err"); done("attendees", []); }
   } catch(e) { log("Exc attendees: " + e.message, "err"); done("attendees", []); }
+
+  try {
+    readBody(function(bodyText) {
+      D.bodyText = bodyText || "";
+      done("teamsMeetingId", extractTeamsMeetingId(bodyText));
+    });
+  } catch(e) { log("Exc body/teamsMeetingId: " + e.message, "err"); done("teamsMeetingId", ""); }
 }
 
 function buildAttendees(req, opt) {
   var seen = {};
   var list = [];
-  req.forEach(function(a) {
+  (req || []).forEach(function(a) {
     var email = (a.emailAddress || "").toLowerCase();
-    seen[email] = true;
+    if (email) seen[email] = true;
     list.push({ name: a.displayName || a.emailAddress || "—", email: a.emailAddress || "", type: "required" });
   });
-  opt.forEach(function(a) {
+  (opt || []).forEach(function(a) {
     var email = (a.emailAddress || "").toLowerCase();
-    if (!seen[email]) list.push({ name: a.displayName || a.emailAddress || "—", email: a.emailAddress || "", type: "optional" });
+    if (!email || !seen[email]) list.push({ name: a.displayName || a.emailAddress || "—", email: a.emailAddress || "", type: "optional" });
   });
   log("Attendees: " + list.length, "ok");
   return list;
@@ -491,44 +459,30 @@ function buildAttendees(req, opt) {
 function render(D) {
   log("Renderizando painel…", "ok");
 
-  // ID
   var idEl = document.getElementById("fieldId");
   idEl.classList.remove("dim");
-  if (D.id) {
-    idEl.textContent = D.id.substring(0, 36) + "…";
+  if (D.teamsMeetingId) {
+    idEl.textContent = D.teamsMeetingId;
   } else {
-    idEl.textContent = "Não disponível";
+    idEl.textContent = "Não encontrado no corpo da reunião";
     idEl.classList.add("dim");
   }
 
-  // Assunto
-  setText("fieldSubject",  D.subject  || "Sem assunto");
-
-  // Local
+  setText("fieldSubject", D.subject || "Sem assunto");
   setText("fieldLocation", D.location || "Não informado");
-
-  // Datas
   setText("fieldStart", formatDate(D.start));
-  setText("fieldEnd",   formatDate(D.end));
+  setText("fieldEnd", formatDate(D.end));
 
-  // Organizador
   var orgEl = document.getElementById("fieldOrganizer");
   orgEl.classList.remove("dim");
   if (D.orgName && D.orgName !== "—") {
-    orgEl.innerHTML =
-      '<span class="pill organizer">' + D.orgName + '</span>' +
+    orgEl.innerHTML = '<span class="pill organizer">' + D.orgName + '</span>' +
       (D.orgEmail ? '<br><small style="color:var(--text-3);font-size:11px;margin-top:2px;display:inline-block;">' + D.orgEmail + '</small>' : "");
-  } else {
-    orgEl.textContent = "Não disponível";
-    orgEl.classList.add("dim");
-  }
+  } else { orgEl.textContent = "Não disponível"; orgEl.classList.add("dim"); }
 
-  // Participantes
   var attEl = document.getElementById("fieldAttendees");
   attEl.classList.remove("dim");
-  document.getElementById("totalAttendeeBadge").textContent =
-    D.attendees.length + " participante" + (D.attendees.length !== 1 ? "s" : "");
-
+  document.getElementById("totalAttendeeBadge").textContent = D.attendees.length + " participante" + (D.attendees.length !== 1 ? "s" : "");
   if (D.attendees.length === 0) {
     attEl.innerHTML = '<span style="color:var(--text-3);font-style:italic;font-size:12px;">Nenhum participante encontrado</span>';
   } else {
@@ -538,21 +492,26 @@ function render(D) {
     }).join("");
   }
 
-  // Monta payload para o Power Automate
   meetingData = {
-    id:        D.id,
-    subject:   D.subject,
+    meetingId: D.teamsMeetingId,
+    teamsMeetingId: D.teamsMeetingId,
+    outlookItemId: D.outlookItemId,
+    subject: D.subject,
     organizer: { name: D.orgName, email: D.orgEmail },
-    start:     D.start  ? (D.start  instanceof Date ? D.start.toISOString()  : String(D.start))  : null,
-    end:       D.end    ? (D.end    instanceof Date ? D.end.toISOString()    : String(D.end))    : null,
-    location:  D.location,
+    start: D.start ? (D.start instanceof Date ? D.start.toISOString() : String(D.start)) : null,
+    end: D.end ? (D.end instanceof Date ? D.end.toISOString() : String(D.end)) : null,
+    location: D.location,
     attendees: D.attendees
   };
 
-  log("Payload: " + JSON.stringify(meetingData).substring(0,120) + "…", "ok");
-  setStatus("ready", "Dados carregados com sucesso",
-    "Clique em 'Enviar para Monitorar' para disparar o fluxo.");
-  setBtn("ready", "Enviar para Monitorar", false);
+  log("Payload: " + JSON.stringify(meetingData).substring(0,140) + "…", "ok");
+  if (D.teamsMeetingId) {
+    setStatus("ready", "ID da reunião capturado", "Clique em 'Enviar para Monitorar' para disparar o fluxo.");
+    setBtn("ready", "Enviar para Monitorar", false);
+  } else {
+    setStatus("error", "ID numérico do Teams não encontrado", "Abra uma reunião do Teams já criada. O ID precisa estar visível no corpo do convite.");
+    setBtn("error", "Enviar mesmo assim", false);
+  }
 }
 
 /* ─── Envio ao Power Automate ────────────────────── */
