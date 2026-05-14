@@ -14,9 +14,9 @@
   <DisplayName DefaultValue="Monitorar Reunião Pública"/>
   <Description DefaultValue="Envia informações da reunião ao fluxo do Power Automate para monitoramento."/>
 
-  <!-- Ícones - arquivo SVG local -->
-  <IconUrl DefaultValue="icon.svg"/>
-  <HighResolutionIconUrl DefaultValue="icon.svg"/>
+  <!-- Ícones - arquivo SVG local (substituir URL_BASE pela sua URL de hospedagem) -->
+  <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
+  <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
 
   <SupportUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net"/>
 
@@ -121,13 +121,13 @@
     <!-- Recursos centralizados -->
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon16" DefaultValue="icon.svg"/>
-        <bt:Image id="Icon32" DefaultValue="icon.svg"/>
-        <bt:Image id="Icon80" DefaultValue="icon.svg"/>
+        <bt:Image id="Icon16" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
+        <bt:Image id="Icon32" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
+        <bt:Image id="Icon80" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/icon.svg"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="commands.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="taskpane.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Monitoramento"/>
