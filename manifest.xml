@@ -10,8 +10,8 @@
   <Version>1.0.1.0</Version>
   <ProviderName>Juliana Office</ProviderName>
   <DefaultLocale>pt-BR</DefaultLocale>
-  <DisplayName DefaultValue="Capturar ID Reunião Teams"/>
-  <Description DefaultValue="Captura o ID numérico da reunião do Microsoft Teams e envia os dados ao Power Automate."/>
+  <DisplayName DefaultValue="Monitorar Reunião Pública"/>
+  <Description DefaultValue="Monitora reunião do Microsoft Teams e envia os dados ao Power Automate."/>
 
   <IconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
   <HighResolutionIconUrl DefaultValue="https://kind-dune-04677490f.7.azurestaticapps.net/assets/icon-80.png"/>
@@ -125,7 +125,7 @@
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Automação"/>
-        <bt:String id="BtnLabel" DefaultValue="Capturar ID Teams"/>
+        <bt:String id="BtnLabel" DefaultValue="Monitorar Reunião"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="BtnDesc" DefaultValue="Abre o painel para capturar o ID numérico da reunião do Teams e enviar ao Power Automate."/>
